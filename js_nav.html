@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #666;
+
+        }
+
+        .nav {
+            float: left;
+            position: relative;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cloud {
+            background-color: rgb(223, 118, 70);
+            display: block;
+            position: absolute;
+            width: 150px;
+            height: 60px;
+            z-index: -10;
+        }
+
+        .cloud::before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-top: 60px solid #666;
+            border-right: 15px solid transparent;
+        }
+
+        .cloud::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-top: 60px solid transparent;
+            border-right: 15px solid #666;
+        }
+
+        .navbar {
+            overflow: hidden;
+            list-style: none;
+            color: #fff;
+            border-bottom: 2px solid green;
+        }
+
+        .navbar li {
+            float: left;
+            padding: 20px 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <span class="cloud"></span>
+        <ul class="navbar">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+        </ul>
+    </div>
+
+    <script>
+        var navbar = document.querySelector(".navbar");
+        var cloud = navbar.previousElementSibling;
+        var li = navbar.children;
+        var lastposition = 0;
+        for (var i = 0; i < li.length; i++) {
+            li[i].onmouseover = function () {
+                var target  =  this.offsetLeft;
+                animate(cloud,target);
+            }
+
+            li[i].onclick = function(){
+                lastposition = this.offsetLeft;
+            }
+
+            li[i].onmouseout = function(){
+                animate(cloud,lastposition);
+            }
+        }
+
+        function animate(obj,target,time_ms = 15)
+        {
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function(){
+                var leader = obj.offsetLeft;   //offset 获取值时就近取整
+                var step = (target - leader) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                leader += step;
+                obj.style.left = leader + 'px';
+                if(target === leader)
+                    clearInterval(obj.timer);
+            },time_ms)
+        }
+    </script>
+</body>
+
+</html>
