@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+
+<body>
+    <div class="box">
+        <div class="content">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+            consectetur? Soluta aliquam rem labore illo consequatur porro cumque nam non, nisi ratione doloribus ipsam
+            facilis maiores? Repudiandae, fugiat?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque
+            voluptates
+
+        </div>
+        <div class="scroll">
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <script>
+        var box = document.querySelector(".box");
+        var content = box.children[0];
+        var scr = box.children[1];
+        var bar = box.children[1].children[0];
+
+        //1.计算滚动条高度  
+        if (box.offsetHeight < content.offsetHeight)
+            bar.style.height = box.offsetHeight / content.offsetHeight * box.offsetHeight + 'px';
+        else
+            bar.style.height = 0;
+
+        //2.滚动条移动
+        scr.onmousedown = function (e) {
+            var boutY = e.offsetY;
+            //console.log(boutY)
+            document.onmousemove = function (e) {
+                var e = e || window.event;
+                var boxY = e.offsetY - boutY;
+                if (boxY < 0)
+                    boxY = 0;
+                if (boxY > scr.offsetHeight - bar.offsetHeight)
+                    boxY = scr.offsetHeight - bar.offsetHeight;
+                bar.style.top = boxY + 'px';
+                var conmax = (box.offsetHeight - content.offsetHeight)/(scr.offsetHeight - bar.offsetHeight);
+
+                content.style.top = boxY*conmax + 'px'
+            };
+        };
+
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        };
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            //nested（嵌套）
+            //compact（紧凑）
+            //expanded（扩展）
+            //compressed（压缩）
+            
+            "extensionName": ".css",
+            "savePath": "/styles"
+        }
+    ],
+    "liveSassCompile.settings.excludeList": [ //排除特定文件夹。文件夹内的所有Sass / Scss文件将被忽略
+        //"**/node_modules/**",
+        //".vscode/**",
+        "**"
+    ],
+    "liveSassCompile.settings.generateMap": true, //将其设置为false不需要.map编译CSS的文件
+    "liveSassCompile.settings.autoprefix": [ // 自动将供应商前缀添加到不受支持的CSS属性（例如transform-> -ms-transform）
+        "> 1%",
+        "last 3 versions"
+    ],
+    "liveSassCompile.settings.showOutputWindow": false //不显示输出窗口
+}
