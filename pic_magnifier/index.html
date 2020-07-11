@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/index.css">
+
+</head>
+
+<body>
+    <div class="box">
+        <div class="smallbox">
+            <img src="images/1.jpg" alt="">
+            <div class="mask"></div>
+        </div>
+        <div class="largebox">
+            <img src="images/2.jpg" alt="">
+        </div>
+    </div>
+
+    <script>
+        var box = document.querySelector(".box");
+        var smb = box.children[0];
+        var lgb = box.children[1];     
+        var mask = smb.children[1];
+        var lgImg = lgb.children[0];
+
+
+        smb.addEventListener('mouseover', function () {
+            lgb.classList.add("display");
+            mask.classList.add("display");
+        });
+
+        smb.addEventListener('mouseout', function () {
+            lgb.classList.remove("display");
+            mask.classList.remove("display");
+        });
+
+        smb.addEventListener('mousemove', function (e) {
+            var e = e || window.event;
+            var x = e.offsetX;
+            var y = e.offsetY;
+            var maskX = x - mask.offsetWidth / 2;
+            var maskY = y - mask.offsetHeight / 2;
+
+            var maskMax = smb.offsetWidth - mask.offsetWidth; //遮挡层最大移动距离
+            var lgbMax = lgb.offsetWidth - lgImg.offsetWidth; //大图片最大移动距离
+
+            if (maskX <= 0)
+                maskX = 0;
+            else if (maskX >= maskMax)
+                maskX = maskMax;
+            if (maskY <= 0)
+                maskY = 0;
+            else if (maskY >= maskMax)
+                maskY = maskMax;
+            mask.style.left = maskX + 'px';
+            mask.style.top = maskY + 'px';
+
+            //大图片移动距离 = 遮挡层移动距离 * 大图片最大移动距离 / 遮挡层最大移动距离
+            var bigX = maskX * lgbMax / maskMax;
+            var bigY = maskY * lgbMax / maskMax;
+
+            lgImg.style.left = bigX + 'px';
+            lgImg.style.top = bigY + 'px';
+
+        });
+    </script>
+</body>
+
+</html>
