@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .top1{
+            height: 200px;
+            line-height: 200px;
+            width: 100%;
+            font-size: 40px;
+            background-color: rgb(8, 175, 30);
+            color: #fff;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .top{
+            height: 100px;
+            line-height: 100px;
+            width: 100%;
+            font-size: 40px;
+            background-color: cornflowerblue;
+            color: #fff;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .content{
+            height: 2000px;
+            font-size: 40px;
+            background-color: rgb(155, 174, 209);
+            color: #fff;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .fixed{
+            position: fixed;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="top1">
+        top1
+    </div>
+
+    <div class="top">
+        fix
+    </div>
+    <div class="content">
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+        <p>content</p>
+    </div>
+
+    <script>
+        var top1 = document.querySelector(".top1");
+        var header = top1.nextElementSibling;
+        var con = document.querySelector(".content");
+        window.onscroll = function(){
+            if(pageYOffset > top1.offsetHeight)
+            {
+                header.className = "top fixed";
+                con.style.marginTop = header.offsetHeight + "px";
+            }
+            else{
+               header.className = "top";
+               con.style.marginTop = "";
+            }
+                
+            
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .box{
+            margin: 0 auto;
+            width: 520px;
+            position: relative;
+        }
+
+        .inner{
+            width: inherit;
+            height: 280px;
+            background-color: pink;
+            position: relative;
+            overflow: hidden;
+        }
+
+        ul{
+            width: 500%;
+            list-style-type: none;
+            position: absolute;
+        }
+
+        ul li{
+          float: left;
+        }
+
+        .square{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+
+        .square span{
+            display: block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            float: left;
+            background-color: rgba(110, 110, 110, 0.678);
+        }
+
+        .square .current{
+            background: #f00;
+            cursor: pointer;
+        }
+
+        .ar{
+            visibility: hidden;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            color: rgb(219, 219, 219);
+            font-size: 20px;
+        }
+
+        .ar span{
+            display: inline-block;
+            background-color: rgba(70, 70, 70, 0.493);
+            width: 30px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .box:hover .ar{
+            visibility: visible;
+        }
+
+        .ar #right{
+            float: right;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <div class="inner">
+            <ul>
+                <li><img src="images/1.jpg" alt=""></li>
+                <li><img src="images/2.jpg" alt=""></li>
+                <li><img src="images/3.jpg" alt=""></li>
+            </ul>
+        </div>
+
+        <div class="square">
+        </div>
+
+        <div class="ar">
+            <span id="left">&lt;</span>
+            <span id="right">&gt;</span>
+        </div>
+        
+    </div>
+
+    <script>
+        var box = document.querySelector('.box');
+        var inner = box.children[0];
+        var ul = inner.children[0];
+        var img = ul.children;
+        var square = box.children[1];
+        var btn = square.children;
+        var imgwidth = inner.offsetWidth;
+        var left = document.getElementById('left');
+        var right = document.getElementById('right');
+
+        var imgcount = img.length;
+
+        var sctimer;
+
+        /************* 动态生成索引按钮 ****************/
+
+        for(var i = 1;i<=imgcount; i++)
+        {
+            var span = document.createElement('span');
+            span.innerHTML = i;
+            square.appendChild(span);
+        }
+
+        square.children[0].className = 'current';
+
+        /************ 克隆第一张图片添加末尾 ************/
+
+        var img1 = img[0].cloneNode(1);
+        ul.appendChild(img1);
+
+        /************** 底部按钮图片移动 *********************/
+
+        for(var i = 0; i< btn.length; i++)
+        {
+            btn[i].index = i;
+            btn[i].onmouseover = function(){
+                for(var j = 0; j < btn.length; j++)
+                btn[j].className = '';
+                this.className = 'current';
+                var target = -this.index * imgwidth;
+                picindex = this.index;
+
+                animation(ul,target,30,15);
+                //console.log(target)
+            }
+        }
+
+        /**************** 左右焦点 ***************************/
+
+        var picindex = 0;
+        var squareindex = 0;
+        right.onclick = function(){
+            if(picindex === imgcount)
+            {
+                ul.style.left = 0;
+                picindex = 0;
+            }
+            picindex++;
+            var target = -picindex * imgwidth;
+            animation(ul,target,30,15);
+            
+            squareindex < btn.length-1 ? squareindex++ : squareindex = 0;
+            for(var j = 0; j < btn.length; j++)
+                btn[j].className = '';
+            btn[squareindex].className = 'current';
+        }
+
+        left.onclick = function(){
+            if(picindex === 0)
+            {
+                ul.style.left = -imgcount * imgwidth + 'px';
+                picindex = imgcount;               
+            }
+           picindex--;
+           var target = -picindex * imgwidth;
+           animation(ul,target,30,15);
+
+           squareindex > 0 ? squareindex-- : squareindex = btn.length-1;
+            for(var j = 0; j < btn.length; j++)
+                btn[j].className = '';
+            btn[squareindex].className = 'current';
+        }
+
+        /************* 无缝滚动 ************************/
+/*
+        ;(function scroll()
+        {
+            setInterval(function(){
+                var leader = ul.offsetLeft;
+                var step = -3;
+                if(leader <= -1560)
+                {
+                    leader = 0;
+                    ul.style.left = leader + 'px';
+                }
+                leader += step;
+                ul.style.left = leader + 'px';
+            },15);
+        })();
+*/
+
+        sctimer = setInterval(right.onclick,1500);
+        box.addEventListener('mouseover',function(){
+            clearInterval(sctimer);
+        });
+        box.addEventListener('mouseout',function(){
+            sctimer = setInterval(right.onclick,1500);
+        });
+
+/******************** 动画函数 ******************************************/
+
+        function animation(obj,target,step,time_ms) 
+        {
+            clearInterval(obj.timer);  
+            obj.timer = setInterval(function(){
+                step = Math.abs(step);  
+                var leader = obj.offsetLeft; 
+                step = leader < target ? step : -step;
+                if(Math.abs(leader - target) >= Math.abs(step)) 
+                {
+                    leader += step; 
+                    obj.style.left = leader + 'px'; 
+                }
+                else
+                {
+                    obj.style.left = target + 'px';
+                    clearInterval(obj.timer);
+                }    
+            },time_ms);  
+        }
+    </script>
+</body>
+</html>

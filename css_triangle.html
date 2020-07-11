@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .box{
+            border: 1px solid red;
+            overflow: hidden;
+            position: absolute;
+        }
+
+        .box span{
+            display: block;
+            float: left;
+            width: 80px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+        }
+
+        .box .sl{
+            width: 105px;
+            background-color: red;
+            color: white;
+            font-weight: bolder;
+            position: relative;
+        }
+
+        .box .sl::before{
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 25px solid red;
+            border-right: 15px solid white;
+            display: block;
+            position: absolute;
+            right: 0
+        }
+
+        .box .sr{
+            color: #999;
+            font-size: 14px;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <span class="sl">¥255.00</span>
+        <span class="sr">¥448.00</span>
+    </div>
+</body>
+</html>
