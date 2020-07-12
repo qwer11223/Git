@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="text">
+    <input type="checkbox" name="" id="rem">rember
+    <p id="p"></p>
+    <script>
+        window.onload = function () {
+            var p = document.querySelector("#p");
+            if (sessionStorage.getItem('name') || localStorage.getItem('name'))
+                p.innerHTML = sessionStorage.getItem('name') || localStorage.getItem('name');
+            else
+                p.innerHTML = 'null';
+        }
+        /*
+        // 1.sessionStorage
+        var checkbox = document.querySelector("#rem");
+        checkbox.addEventListener('change',function(){
+            var value = document.querySelector('#text').value;
+            if(value == '')
+            {
+                alert('content null');
+            }
+            else
+            {
+                sessionStorage.setItem('name',value);
+            }
+        });
+        */
+        // 2.localStorage
+        var checkbox = document.querySelector("#rem");
+        checkbox.addEventListener('change', function () {
+            var value = document.querySelector('#text').value;
+            if (value == '') {
+                alert('content null');
+            }
+            else {
+                localStorage.setItem('name', value);
+            }
+        });
+
+        //3.cookie
+        /*
+        *********** date() **************
+        document.cookie = "user=a ; expires = Thu, 01 Jan 2021 00:00:02 GMT";
+        console.log(document.cookie)
+        
+        var d = new Date(); 
+        console.log(d);     //获得当日的日期
+        console.log(d.getFullYear());   //	从 Date 对象以四位数字返回年份
+        console.log(d.getMonth());      //月
+        console.log(d.getDate());       //日
+        console.log(d.getTime());   //getTime() 返回从 1970 年 1 月 1 日至今的毫秒数
+        var weekday = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+        console.log(weekday[d.getDay()]);
+
+        *******************************
+        */
+
+        function setcookie(key, value, exdays, path = '/')    //设置cookie
+        {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var key = key;
+            var value = value;
+            var expires = 'expires=' + d.toUTCString();
+
+            document.cookie = key + '=' + value + ';' + expires + ';' + 'path=' + path;
+        }
+
+        function getcookie(key)     //获取cookie值
+        {
+            var name = key + '=';
+            var ca = document.cookie.split(';');
+            for(var i = 0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if(c.indexOf(name) == 0)
+                    return c.substring(name.length,c.length);
+            }
+            return '';
+        }
+
+        function removecookie(key)  //删除cookie
+        {
+            if(getcookie(key) != '')
+                setcookie(key,'',-1);
+            else
+                return -1;
+        }
+
+        function clearcookie()  //移除所有cookie
+        {
+            var count = 0;
+            if(document.cookie != '')
+            {
+                var ca = document.cookie.split(';');
+                for(var i = 0; i<ca.length; i++)
+                {
+                    var name = ca[i].split('=');
+                    setcookie(name[0],'',-1);
+                    count++;
+                }
+                return count;
+            }
+            else
+                return -1;
+        }
+
+    </script>
+</body>
+
+</html>

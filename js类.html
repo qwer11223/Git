@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.创建类和生成实例
+        //使用class创建类,类名首字母一般大写
+        //类名后面无需加括号
+        //构造函数无需加function
+/*
+        class Demo{
+            constructor(name,age){  //构造函数， new 时自动调用；可接收参数，同时返回实例对象
+                this.name = name;   //不写此函数，类也会自动生成
+                this.age = age;
+            }
+        }
+
+        var jack = new Demo('jack',11);
+        var leo = new Demo('leo',22);
+        console.log(jack); 
+        console.log(leo);
+
+        //2.类中添加共有方法
+        class Demo{
+            constructor(name,age){ 
+                this.name = name;   //类中变量称为属性
+                this.age = age;
+            }
+
+            func(act)   //类中函数称为方法
+            {
+                console.log(this.name + act);
+            }
+        }
+
+        var jack = new Demo('jack',11);
+        jack.func(' run');  //jack run
+
+        //3.类的继承    extends
+        class Father{
+            num()
+            {
+                console.log(100);
+            }
+        }
+
+        class Son extends Father{
+
+        }
+
+        var son = new Son;
+        son.num()   //100
+
+        //4.super访问和调用对象父类上的构造函数
+        class Father{
+            constructor(x,y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+
+            num()
+            {
+                console.log(this.x + this.y);
+            }
+        }
+
+        class Son extends Father{
+            constructor(x,y)
+            {
+                super(x,y);     //调用父类中的构造函数
+            }
+        }
+        var son = new Son(1,2);
+        son.num();  //3
+
+        //5.super访问和调用对象父类上的普通函数
+        class Father{
+            log()
+            {
+                return 'father';
+            }
+        }
+
+        class Son extends Father{
+            log()
+            {
+                //console.log('son');  
+                console.log(super.log());   //调用父类中的构普通函数
+            }
+        }
+        var son = new Son();
+        son.log();   //father   //就近原则，使用son内的log函数；
+*/
+        //6.super 必须在子类 this 之前
+        class Father{
+            constructor(x,y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+
+            sum()
+            {
+                console.log(this.x + this.y);
+            }
+        }
+
+        class Son extends Father{
+            constructor(x,y)
+            {
+                //调用父类中的构造函数
+                //spuer 必须在子类 this 之前
+                super(x,y);
+                this.x = x;
+                this.y = y;    
+            }
+
+            substract()
+            {
+                console.log(this.x - this.y);
+            }
+        }
+        var son = new Son(9,2);
+        son.sum();  //9+2=11
+        son.substract();    //9-2=7
+    </script>
+</body>
+</html>
