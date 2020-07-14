@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="vue/vue.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label for="">
+                    Id:
+                    <input type="text" name="" id="" class="form-control" v-model="id">
+                </label>
+
+                <label for="">
+                    Name:
+                    <input type="text" class="form-control" v-model="name">
+                </label>
+
+                <input type="button" value="添加" class="btn btn-primary" @click="add()">
+
+                <label>
+                    搜索关键字:
+                    <input type="text" class="form-control" v-model='keywords'>
+                </label>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped table_hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in search(keywords)" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.time}}</td>
+                    <td><a href="" @click.prevent='del(item.id)'>删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '.app',
+            data: {
+                id: '',
+                name: '',
+                keywords:'',
+                list: [
+                    { id: 1, name: '奔驰', time: new Date() }
+                ]
+            },
+            methods: {
+                add: function () {
+                    var car = { id: this.id, name: this.name, time: new Date()};
+                    this.list.push(car);
+                    this.id = this.name = '';
+                },
+
+                del:function(id){
+                    this.list.some((item,i)=>{
+                        if(item.id == id){
+                            this.list.splice(i,1);
+                            return true;
+                        }
+                    });
+                },
+
+                search:function(keywords){
+                    /*
+                    var rtlist=[];
+                    this.list.forEach(item=>{
+                        if(item.name.indexOf(keywords) != -1)
+                            rtlist.push(item);
+                    });
+                    
+                    return rtlist;
+                    */
+                    //foreach  some  filter  findindex
+                    //都会对数组中的每一项进行遍历
+
+                    return this.list.filter(item=>{
+                        if(item.name.includes(keywords))
+                            return item;
+                    })
+
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
