@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <login :pmsg="msg"></login>
+
+        <login2></login2>
+
+        <!--  组件切换方式一
+            <a href="#" @click.prevent="flag=true">登录</a>
+            <a href="#" @click.prevent="flag=false">注册</a>
+            <log v-if='flag'></log>
+            <reg v-else='flag'></reg> 
+        -->
+
+        <!-- 组件切换方式二 -->
+        <a href="#" @click.prevent="flag='log'">登录</a>
+        <a href="#" @click.prevent="flag='reg'">注册</a>
+        <component :is="flag"></component>
+    </div>
+
+
+
+    <template id="temp">
+        <h1>这是子组件{{pmsg}}</h1>
+    </template>
+    <transition></transition>
+    <transitionGroup></transitionGroup>
+
+
+    <script>
+
+        Vue.component('log', {
+            template: '<h3>登录组件</h3>'
+        });
+
+        Vue.component('reg', {
+            template: '<h3>注册组件</h3>'
+        })
+
+        /****************************************************/
+
+        Vue.component('login2', {
+            template: '<h1>这是全局有的{{mes}}</h1>',
+            data: function () {
+                return {
+                    mes: 'data中定义的mes'
+                }
+
+            }
+        })
+
+        /****************************************************/
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: 'log',
+                msg:'————父组件中数据'
+            },
+   /*         methods: {},    //方法
+            filters: {      //过滤器
+                filtersName: function (str, arg) {
+                    //{{ name | filters}}
+                    //some content...
+                    //return ...
+                }
+            },
+            directives: {       //自定义指令
+                name: function (el, binding) {
+
+                    //v-name="'value'"
+                    el.style.attr = binding.value;
+                }
+            },*/
+            components: {       //组件
+                login: {
+                    //template:'<h3>这是私有的login</h3>'
+                    template: '<h1>这是子组件{{pmsg}}</h1>',
+                    props: ['pmsg'],
+                },
+                
+
+            },
+
+            beforeCreate() { },     /*生命周期函数*/
+            created() { },
+            beforeMount() { },
+            mounted() { },
+            beforUpdate() { },
+            updated() { },
+            beforeDestory() { },
+            destoryed() { }
+
+
+            /*
+                /************  全局过滤器 ***********************
+        Vue.filter('dataFormat', function (datestr, pattern) {
+            var dt = datestr;
+            var y = dt.getFullYear();
+            var m = dt.getMonth() + 1;
+            var d = dt.getDate();
+
+            if (pattern && pattern.toLowerCase() === 'yyyy-mm-dd')
+                return `${y}-${m}-${d}`;
+            else {
+                var hh = dt.getHours();
+                var mm = dt.getMinutes();
+                var ss = dt.getSeconds();
+
+                return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`;
+            }
+        });
+
+        /************ 自定义全局按键修饰符 **********************
+        Vue.config.keyCodes.f1 = 112;
+
+        /************** 自定义 *******************
+        // 参数1：指令的名称不加v- 调用时加v-  参数2：是一个对象
+        Vue.directive('focus', {
+            //   bind:function(){}, //指令绑定到元素上的时候执行，只执行一次
+
+            inserted: function (el) {   //元素插入到DOM中时触发，【触发一次】 
+                //第一个参数 el 表示被绑定指令的元素
+                el.focus();
+            }
+
+            //  update:function(){}     // vnode更新时触发，可能触发多次
+        })
+            */
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <style>
+        .v-enter-active,
+        .v-leave-active {
+           transition: .5s;
+        }
+
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+        }
+
+        .ball {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo">
+        <input type="button" value="click" @click="show = !show">
+
+        <transition enter-active-class="animated bounceIn">
+            <p v-if="show">aaaaa</p>
+        </transition>
+
+    </div>
+
+    <div class="app">
+        <input type="button" value="ball" @click="show = !show">
+
+        <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter">
+
+            <div class="ball" v-if="show"></div>
+        </transition>
+
+    </div>
+
+
+    <script>
+        var demo = new Vue({
+            el: '.demo',
+            data: {
+                show: true
+            }
+        });
+
+        var app = new Vue({
+            el: '.app',
+            data: {
+                show: false
+            },
+            methods: {
+                beforeEnter(el) {
+                    el.style.transform = "translate(0,0)";
+                },
+                enter(el) {
+                    el.offsetWidth
+                    el.style.transform = "translate(150px,450px)";
+                    
+                },
+                afterEnter(el) {
+                    this.show = !this.show;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -26,14 +26,14 @@
 
                 <label for="">
                     Name:
-                    <input type="text" class="form-control" v-model="name">
+                    <input type="text" class="form-control" v-model="name" @keyup.enter="add">
                 </label>
 
                 <input type="button" value="添加" class="btn btn-primary" @click="add()">
 
                 <label>
                     搜索关键字:
-                    <input type="text" class="form-control" v-model='keywords'>
+                    <input type="text" class="form-control" v-model='keywords' v-focus v-color="'#666'">
                 </label>
             </div>
         </div>
@@ -51,7 +51,7 @@
                 <tr v-for="item in search(keywords)" :key="item.id">
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
-                    <td>{{item.time}}</td>
+                    <td>{{item.time | dataFormat('')}}</td>
                     <td><a href="" @click.prevent='del(item.id)'>删除</a></td>
                 </tr>
             </tbody>
@@ -59,33 +59,69 @@
     </div>
 
     <script>
+        /************  全局过滤器 ***********************/
+        Vue.filter('dataFormat', function (datestr, pattern) {
+            var dt = datestr;
+            var y = dt.getFullYear();
+            var m = dt.getMonth() + 1;
+            var d = dt.getDate();
+
+            if (pattern && pattern.toLowerCase() === 'yyyy-mm-dd')
+                return `${y}-${m}-${d}`;
+            else {
+                var hh = dt.getHours();
+                var mm = dt.getMinutes();
+                var ss = dt.getSeconds();
+
+                return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`;
+            }
+        });
+
+        /************ 自定义全局按键修饰符 **********************/
+        Vue.config.keyCodes.f1 = 112;
+
+        /************** 自定义 *******************/
+        // 参数1：指令的名称不加v- 调用时加v-  参数2：是一个对象
+        Vue.directive('focus', {
+            //   bind:function(){}, //指令绑定到元素上的时候执行，只执行一次
+
+            inserted: function (el) {   //元素插入到DOM中时触发，【触发一次】 
+                //第一个参数 el 表示被绑定指令的元素
+                el.focus();
+            }
+
+            //  update:function(){}     // vnode更新时触发，可能触发多次
+        })
+
         var vm = new Vue({
             el: '.app',
             data: {
                 id: '',
                 name: '',
-                keywords:'',
+                keywords: '',
                 list: [
-                    { id: 1, name: '奔驰', time: new Date() }
+                    { id: 1, name: '奔驰', time: new Date() },
+                    { id: 2, name: '宝马', time: new Date() },
+                    { id: 3, name: '奥迪', time: new Date() }
                 ]
             },
             methods: {
                 add: function () {
-                    var car = { id: this.id, name: this.name, time: new Date()};
+                    var car = { id: this.id, name: this.name, time: new Date() };
                     this.list.push(car);
                     this.id = this.name = '';
                 },
 
-                del:function(id){
-                    this.list.some((item,i)=>{
-                        if(item.id == id){
-                            this.list.splice(i,1);
+                del: function (id) {
+                    this.list.some((item, i) => {
+                        if (item.id == id) {
+                            this.list.splice(i, 1);
                             return true;
                         }
                     });
                 },
 
-                search:function(keywords){
+                search: function (keywords) {
                     /*
                     var rtlist=[];
                     this.list.forEach(item=>{
@@ -98,13 +134,40 @@
                     //foreach  some  filter  findindex
                     //都会对数组中的每一项进行遍历
 
-                    return this.list.filter(item=>{
-                        if(item.name.includes(keywords))
+                    return this.list.filter(item => {
+                        if (item.name.includes(keywords))
                             return item;
                     })
 
                 }
+            },
+
+            /*********************  私有过滤器 **************************/
+            filters: {
+                dataFormat: function (datestr, pattern) {
+                    var dt = datestr;
+                    var y = dt.getFullYear();
+                    var m = (dt.getMonth() + 1).toString().padStart(2, '0');
+                    var d = dt.getDate().toString().padStart(2, '0');
+
+                    if (pattern && pattern.toLowerCase() === 'yyyy-mm-dd')
+                        return `${y}-${m}-${d}`;
+                    else {
+                        var hh = dt.getHours().toString().padStart(2, '0');
+                        var mm = dt.getMinutes().toString().padStart(2, '0');
+                        var ss = dt.getSeconds().toString().padStart(2, '0');
+
+                        return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`;
+                    }
+                }
+            },
+
+            directives: {
+                'color': function (el,binding) {
+                    el.style.color = binding.value;
+                }
             }
+
         });
     </script>
 </body>
