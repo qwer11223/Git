@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.min.js"></script>
+    <style>
+        .class1{
+            background-color: gray;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-html="mes"></div>
+        <label for="l1">click</label>
+        <input type="checkbox" id="l1" v-model="ch">
+        <div v-bind:class="{class1:ch}">
+            {{content}}
+        </div>
+        <p v-if=dis>v-if</p>
+        <a :href="url" @click="click()">href</a>
+        <p></p>
+        <input type="text" v-model=url>
+    </div>
+
+    <div class="component">
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <br>
+        <my-com :mes1="mes2"></my-com>
+        <child mes="props"></child>
+    </div>
+
+
+    <script>
+        
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                mes:'<h1> itht </h1>',
+                content:'v-bind',
+                ch:false,
+                dis:true,
+                url:'http://www.baidu.com',
+            },
+            methods:{
+                click:function()
+                {
+                    alert("baidu.com");
+                }
+            }
+        });
+
+/*************** vue 组件 (实例化前注册组件) ************************************/
+        Vue.component('button-counter',{    // 全局组件
+            data:function(){    //data必须为函数
+                return{
+                    count:0
+                }
+            },
+            template:'<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+        });
+
+        Vue.component('child',{
+            props:['mes'],  // 声明props
+            template: '<span>{{ mes }}</span>',
+        });
+
+        new Vue({
+            el:'.component',
+            data:{
+                mes2:1122,
+            },
+            components:{        //局部组件
+                'my-com':{
+                    props:['mes1'],
+                    template: '<h1>局部组件{{mes1}}</h1>'
+                    }
+            }
+            });
+    </script>
+</body>
+</html>
