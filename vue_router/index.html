@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-router/2.7.0/vue-router.min.js"></script>
+
+    <style>
+        .myactive {
+            font-size: 20px;
+            color: blueviolet;
+            text-decoration: none;
+            background-color: #ccc;
+        }
+
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(140px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: .5s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+
+        <router-link to="/parent">parent</router-link>
+
+
+        <transition mode="out-in">
+            <!--添加切换动画-->
+            <router-view></router-view>
+        </transition>
+
+
+
+        <!-- <h3 ref="temp1">ref</h3>    ref获取dom -->
+
+    </div>
+
+    <!-- 路由组件模板 -->
+    <template id="parent">
+        <div>
+            <h1>这是 parent 组件</h1>
+
+            <router-link to="/parent/login?id=12&name=jack">login</router-link>
+            <router-link to="/parent/register/55/''">register</router-link>
+
+            <transition mode="out-in">
+                <!--添加切换动画-->
+                <router-view></router-view>
+            </transition>
+        </div>
+    </template>
+
+
+    <script>
+
+        var parent = {
+            template: "#parent"
+        }
+
+        var login = {
+            template: '<h3>login_component -- {{$route.query.id}}</h3>' //query 传递参数
+        }
+
+        var register = {
+            template: '<h3>register_component -- {{$route.params.id}}</h3>' //params 传递参数
+        }
+
+        var routerObj = new VueRouter({
+            routes: [
+                //{ path: '/', redirect: '/parent' },
+                //{ path: '/parent/login', component: login },
+                //{ path: '/parent/register/:id/:name', component: register },
+
+                /******  路由嵌套 ********************/
+                {
+                    path: '/parent',
+                    component: parent,
+                    children: [        //子路由嵌套使用children
+                        { path: 'login', component: login },    //子路由前面不加 '/' ，否则永远以根路径开始请求
+                        { path: 'register/:id/:name', component: register }
+                    ]
+                }
+            ],
+            linkActiveClass: 'myactive'
+        })
+
+
+        var vm = new Vue({
+            el: '.app',
+            data: {},
+            methods: {},
+            created() {      //$refs 获取dom元素
+                console.log('$refs -- ', this.$refs)
+            },
+            router: routerObj,
+        })
+
+    </script>
+</body>
+
+</html>
