@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-router/2.7.0/vue-router.min.js"></script>
+
+    <style>
+        #app{
+            font-size: 40px;
+            color: #fff;
+            font-weight: bold;
+            background-color: rgb(230, 116, 214);
+        }
+
+        .left{
+            background-color: goldenrod;
+            flex:1
+        }
+
+        .main{
+            background-color: green;
+            flex: 9
+        }
+
+        .flex{
+            display: flex;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <router-view></router-view>
+
+        <div class="flex">
+            <router-view name="left"></router-view>
+            <router-view name="mainBox"></router-view>
+        </div>
+
+    </div>
+
+    <template id="header">
+        <div>header -- default_router</div>
+    </template>
+
+    <template id="left">
+        <div class="left">left -- router2</div>
+    </template>
+
+    <template id="mainBox">
+        <div class="main">mainBox -- router3</div>
+    </template>
+
+    <script>
+
+        var header = {
+            template: '#header'
+        }
+
+        var left = {
+            template: '#left'
+        }
+
+        var mainBox = {
+            template: '#mainBox'
+        }
+
+        var router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    components: {
+                        default: header,
+                        left: left,
+                        mainBox
+                    }
+                }
+            ]
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            router
+        })
+    </script>
+</body>
+
+</html>
