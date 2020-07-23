@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+
+    <div class="app">
+        <tmpl :msg="msg" @fun="getSonData"></tmpl>
+    </div>
+
+    <template id="son">
+        <div>
+            <h1>这是子组件 -- {{msg}}</h1>
+        </div>
+    </template>
+
+    <script>
+
+        var tmpl={
+            template:'#son',
+            props:['msg'],
+            data(){
+                return {
+                    sondata:'子组件data中的值'
+                }
+            },
+            created(){  //生命周期函数
+                this.$emit('fun',this.sondata); //向父组件传参
+            }
+        }
+
+        var vm = new Vue({
+            el:'.app',
+            data:{
+                msg:'父组件中的值'
+            },
+            methods:{
+                getSonData(data){
+                    console.log(data)
+                }
+            },
+            components:{
+                tmpl
+            }
+        })
+    </script>
+    
+</body>
+</html>

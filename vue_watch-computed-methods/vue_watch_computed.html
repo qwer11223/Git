@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-router/2.7.0/vue-router.min.js"></script>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <router-link to="/login">登陆组件</router-link>
+        <router-link to="/register">登陆组件</router-link>
+
+        <router-view></router-view>
+
+        <div>
+            <input type="text" v-model="first"> +
+            <input type="text" v-model="last"> =
+            <input type="text" v-model="full">
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+        var route1 = {
+            template: '<h1>这是登陆组件</h1>'
+        }
+
+        var route2 = {
+            template: '<h1>这是注册组件</h1>'
+        }
+
+
+        var router = new VueRouter({
+            routes: [
+                { path: '/login', component: route1 },
+                { path: '/register', component: route2 }
+            ]
+        })
+
+        var vm = new Vue({
+            el: '.app',
+            data: {
+                first: '0',
+                last: '0',
+
+            },
+            watch: {   //监听非dom元素改变 //监视路由地址变化
+                '$route.path': function (newValue, oldValue) {
+                    console.log('currentAdd:' + newValue + '--- //' + oldValue)
+                }
+            },
+            computed: {     //调用时不加（），当普通属性调用； //计算属性的求值结果，会被缓存起来，方便下次使用，提高运行效率
+                full: function () {
+                    return parseInt(this.first) + parseInt(this.last);
+                }
+            },
+            router
+        })
+    </script>
+</body>
+
+</html>
