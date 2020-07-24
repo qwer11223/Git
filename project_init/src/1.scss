@@ -1,0 +1,11 @@
+body{
+    .container{
+        background-image: linear-gradient(to right,#f00,#0f0);
+
+        .img{
+            width: 100px;
+            height: 100px;
+            background-image: url(images/1.jpg);
+        }
+    }
+}
