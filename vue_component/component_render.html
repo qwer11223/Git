@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+
+<body>
+
+    <div class="app">
+    </div>
+
+    <template id="temp">
+        <h1>temp</h1>
+    </template>
+
+    <script>
+        var login = {
+            template: '#temp'
+        }
+
+        var vm = new Vue({
+            el: '.app',
+            data: {},
+            /*components: {
+                login
+            }
+            render:function(createElements){
+                return createElements(login)
+            }*/
+            render: c => c(login)
+            //render 渲染组件会替换el指定的容器
+        })
+    </script>
+</body>
+
+</html>
