@@ -1,0 +1,9 @@
+"git.path": "D:/Program Files (x86)/Git/cmd/git.exe",
+    "vetur.format.options.tabSize": 4,
+    "vetur.format.options.useTabs": true,
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            "semi": false,
+            "singleQuote": true
+        }
+    },
