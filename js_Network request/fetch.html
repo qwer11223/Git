@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*default
+        fetch('http://127.0.0.1/vuesite_source_server/newslist_return.php').then(data => {
+            return data.text()
+        }).then(res => {
+            console.log(res)
+        })
+        */
+
+        //get
+        fetch('http://127.0.0.1/vuesite_source_server/newslist_return.php', {
+            method: 'get'
+        }).then(data => {
+            //return data.text() //将返回体处理成字符串类型
+            return data.json()  //返回结果和 JSON.parse(responseTwxt) 一样
+        }).then(res => {
+            console.log(res)
+        })
+
+        /*post
+        fetch('http://127.0.0.1/vuesite_source_server/newslist_return.php', {
+            method: 'post',
+            body: 'name=jack&pwd=123',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(data => {
+            return data.text()
+        }).then(res => {
+            console.log(res)
+        })
+        */
+
+        /*post-json
+        fetch('http://127.0.0.1/vuesite_source_server/newslist_return.php', {
+            method: 'post',
+            body: JSON.stringify({
+                name:'jack',
+                pwd:'123'
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(data => {
+            return data.text()
+        }).then(res => {
+            console.log(res)
+        })
+        */
+
+        /*put-json
+       fetch('http://127.0.0.1/vuesite_source_server/newslist_return.php', {
+           method: 'put',
+           body: JSON.stringify({
+               name:'jack',
+               pwd:'123'
+           }),
+           headers: {
+               'Content-Type': 'application/json'
+           }
+       }).then(data => {
+           return data.text()
+       }).then(res => {
+           console.log(res)
+       })
+       */
+    </script>
+</body>
+
+</html>

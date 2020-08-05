@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        axios.get('http://127.0.0.1/vuesite_source_server/newslist_return.php').then(res => {
+            console.log(res.data)
+        })
+
+        /*
+        axios.get('http://127.0.0.1/vuesite_source_server/newslist_return.php?id=123').then(res=>{
+            console.log(res.data)
+        })
+        */
+
+        /* get-params arg
+        axios.get('http://127.0.0.1/vuesite_source_server/newslist_return.php', {
+            params: {
+                id: 123
+            }
+        }).then(res => {
+            console.log(res.data)
+        })
+        */
+
+        /*post 默认发送 json 格式
+        axios.post('http://127.0.0.1/vuesite_source_server/newslist_return.php', {
+            name: 'leo',
+            pwd: 123
+        }).then(res => {
+            console.log(res.data)
+        })
+        */
+
+        /*  通过 URLSearchParams 传递 (application/x-www-form-urlencoded) 格式
+        var params = new URLSearchParams();
+        params.apped('name', 'leo');
+        params.apped('pwd', '111');
+        axios.post('http://127.0.0.1/vuesite_source_server/newslist_return.php', params).then(res => {
+            console.log(res.data)
+        })
+        */
+
+
+        //axios 全局配置
+        //axios.defaults.timeout = 3000; //超时时间
+        //axios.defaults.baseURL = 'http://127.0.0.1/'; //默认地址
+        //axios.defaults.headers[ 'token' ] = 'hellow';  //设置请求头
+
+        //请求拦截器
+        axios.interceptors.request.use(function (config) {
+            //再请求发出之前进行一些信息设置
+            console.log(config);
+            config.headers.token = 'hellow'; //与全局配置中一致
+            return config;
+        }, function (err) {
+            //处理响应的错误信息
+            console.log(err)
+        })
+
+        //响应拦截器
+        axios.interceptors.response.use(function (res) {
+            //对返回数据进行处理
+            console.log(res);
+            var data = res.data;
+            return data;
+        }, function (err) {
+            //处理响应的错误信息
+            console.log(err)
+        })
+    </script>
+</body>
+
+</html>

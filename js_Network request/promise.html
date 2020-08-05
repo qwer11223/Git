@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //异步 1.定时任务  2.ajax  3.事件函数
+        //promise是一个对象，从它可获取异步操作的消息
+        //可解决异步调用嵌套问题（回调地狱）
+        //提供简洁api，控制异步操作更容易
+        //resolve reject 两个参数用于处理成功和失败两种情况
+        //then获取结果
+
+        var p = new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                var flag = true;
+                if (flag) {
+                    resolve('success')
+                }
+                else {
+                    reject('error')
+                }
+            }, 100);
+        })
+        p.then(function (data) {
+            console.log(data)
+        }, function (info) {
+            console.log(info)
+        })
+
+        /****************************************/
+
+        function timeOut(i, j) {
+            return new Promise(function (s, e) {
+                var a = setTimeout(function () {
+                    s(j)
+                }, i)
+            })
+        }
+
+        timeOut(1000, 1)
+            .then(d => {
+                console.log(d)
+                return timeOut(3000, 2)
+            })
+            .then(d => {
+                console.log(d)
+                return timeOut(2000, 3)
+            })
+            .then(d => {
+                console.log(d)
+            })
+        
+        /*
+        timeOut()
+            .then(function (data) {     //成功
+                console.log(data)
+            })
+            .catch(function () { })     //失败,可选
+            .finally(function () { })   //结束始终执行
+            
+        //对象方法
+        //Promise.all()  并发处理多个异步任务，所有任务执行完成才能得到结果
+        //Promise.race()  并发处理多个异步任务，只要有一个任务执行完成就能得到结果
+        /*
+        Promise.all([p1, p2, p3]).then(res => {
+            console.log(res)
+        })
+
+        Promise.race([p1, p2, p3]).then(res => {
+            console.log(res)
+        })
+        */
+    </script>
+</body>
+
+</html>
