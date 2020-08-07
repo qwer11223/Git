@@ -7,8 +7,17 @@
 
 <br/>
 
-# 数据类型
+# 数据类型 [+]
+[+]:https://www.runoob.com/mysql/mysql-data-types.html
+
 > ## 日期和时间
+|类型|范围|备注|
+|:-:|:-:|:-:|
+|date|1000-01-01 ~ 9999-12-31|
+|datetime|1000-01-01 00:00:00 ~ 9999-12-31 23:59:59|
+|time|-838:59:59 ~ 838:59:59|
+|timestamp|1970-01-01 00:00:01 ~ 2037-12-31 23:59:59
+|year| 两位数值- 1 ~ 99 ;四位数值- 1901 ~ 2155
 
 > ## 数值 (整数)  
 |类型|储存字节|有符号数范围|无符号数范围|备注|
@@ -30,8 +39,20 @@
 |decimal|自适应|15 ~ 16位|（定点型）不会丢失精度
 
 > ## 字符串
-
-
+|类型|大小(bytes)|备注|
+|:-:|:-:|:-:|
+|char|0 ~ 255
+|varchar|0 ~ 65 535
+|tinyblob|0 ~ 255
+|tinytext|0 ~ 255
+|blob|0 ~ 65 535
+|text|0 ~ 65 535
+|mediumblob|0 ~ 16 777 215
+|mediumtext|0 ~ 16 777 215
+|longblob|0 ~4 294 967 295
+|longtext|0 ~4 294 967 295
+|enum
+|set
 
 <br/>
 
@@ -123,14 +144,66 @@ drop [temporary] table [id exists] tb1_name [,tb2_name];
 ## 更改表结构
 ```sql
 -- 增加 birthdate 列，data类型
-alter table tb add column birthdate date;
+alter table tb add [column] birthdate date;
 
 -- 增加 birthdate 列，data类型,放置在 email 后
-alter table tb add column birthdate date after email;
+alter table tb add [column] birthdate date after email;
 
--- 修改列
-alter table tb change birthdate birthdate date not null;
+-- 修改字段名
+alter table 表名 change [column] 旧字段名 新字段名 字段类型 [属性];
 
--- 删除birthdate列
-alter table tb drop birthdate;
+-- 修改字段类型
+alter table 表名 change 旧字段名 旧字段名 字段类型 [属性];  #不推荐使用change修改
+
+alter table 表名 modify [column] 字段名 字段类型 [属性];
+
+-- 删除字段
+alter table 表名 drop 字段名;
+```
+
+## 更新表名
+> `rename table oldname to newname;`
+
+<br/>
+
+# 数据操作
+## 新增数据
+```sql
+insert into 表名 values (字段1对应的值1，字段2对应的值2，...);
+
+-- 指定字段新增数据
+insert into 表名 (字段1，字段2，...) values (值1，值2，...);
+
+-- 新增多行记录
+insert into 表名 [(字段1，字段2，...)] values (值1，值2，...),(值1，值2，...);
+```
+
+## 查看数据
+```sql
+select * from tb;
+
+select field 1, field 2 from tb;
+
+select field_list / * from tb where expression;
+```
+
+## 更新数据
+```sql
+-- 全部更新
+update 表名 set 字段 = 新值;
+
+-- 根据条件更新
+update 表名 set 字段 = 新值 where 条件表达式;
+
+-- 修改多个字段数据
+update 表名 set 字段1 = 新值1, 字段2 = 新值2 where 条件表达式;
+```
+
+## 删除数据
+```sql
+-- 全部删除
+delete from 表名;
+
+-- 按条件删除
+delete from 表名 where 条件表达式;
 ```
