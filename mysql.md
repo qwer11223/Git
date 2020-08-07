@@ -1,4 +1,14 @@
-# SQL
+# 索引
+* <a href="#sql">SQL</a>
+* <a href="#type">数据类型</a>
+* <a href="#lg">登录MySQL</a>
+* <a href="#db">处理数据库</a>
+* <a href="#table">处理表</a>
+* <a href="#data">数据操作</a>
+
+<br/>
+
+# <a href="#" id="sql"># SQL</a>
 > 1. DQL: Data Query Language, 数据查询语言，用于查询和检索数据 
 > 2. DML: Data Manipulation Language, 数据操作语言，用于数据的写操作（增删改）
 > 3. DDL: Data Definition Language, 数据定义语言，用于创建数据结构
@@ -7,7 +17,7 @@
 
 <br/>
 
-# 数据类型 [+]
+# <a href="#" id="type"># 数据类型 [+]</a>
 [+]:https://www.runoob.com/mysql/mysql-data-types.html
 
 > ## 日期和时间
@@ -56,7 +66,7 @@
 
 <br/>
 
-# 登录MySQL
+# <a href="#" id="lg"># 登录MySQL</a>
 > `mysql -u root -p`
 
 -h : host 连接服务器的主机地址，本机使用localhost可省略该参数  
@@ -88,7 +98,7 @@
 
 <br/>
 
-# 处理数据库
+# <a href="#" id="db"># 处理数据库</a>
 
 ## 创建数据库
 > `create database db_name;`
@@ -104,7 +114,7 @@
 
 <br/>
 
-# 处理表
+# <a href="#" id="table"># 处理表</a>
 
 ## 创建表
 ```sql
@@ -166,7 +176,7 @@ alter table 表名 drop 字段名;
 
 <br/>
 
-# 数据操作
+# <a href="#" id="data"># 数据操作</a>
 ## 新增数据
 ```sql
 insert into 表名 values (字段1对应的值1，字段2对应的值2，...);
@@ -207,3 +217,10 @@ delete from 表名;
 -- 按条件删除
 delete from 表名 where 条件表达式;
 ```
+
+<style>
+h1{
+    color: #4191ec;
+    font-weight: bold;
+}
+</style>
