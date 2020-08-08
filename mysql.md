@@ -148,7 +148,7 @@ create temporary table temp_tb select email, phone from tb;
 
 ## 删除表
 ```sql
-drop [temporary] table [id exists] tb1_name [,tb2_name];
+drop [temporary] table [if exists] tb1_name [,tb2_name];
 ```
 
 ## 更改表结构
@@ -217,6 +217,104 @@ delete from 表名;
 -- 按条件删除
 delete from 表名 where 条件表达式;
 ```
+
+<br/>
+
+# 高级操作
+## 主键冲突
+```sql
+-- 1.主键冲突更新
+insert into 表名 values (字段1对应的值1，字段2对应的值2，...) on duplicate key update 字段 = 新值
+
+-- 2.主键冲突替换
+replace into [(字段列表)] values (值列表)
+```
+
+## 蠕虫复制
+```sql
+-- 一分为二，成倍增加数据，测试表压力
+insert into 表名 [(字段列表)] select */字段列表 from 表
+```
+
+## 重置 auto_increment
+> `truncate 表名;`
+
+## 查询数据
+> 完整的查询指令：  
+`select 选项 字段列表 from 数据源 where 条件 group by 分组 having 条件 order by 排序 limit 限制;`
+>  
+>select 选项：系统如何对待查询得到的结果  
+>* all:  默认的，表示保存所有的记录  
+>* distinct: 去重，去除重复的记录，只保留一条（所有字段都相同的情况）
+>
+> 字段列表：从多表获取到相同字段时，使用别名(alias)
+>* 语法：字段名 [as] 别名  
+`select distinct ch ch1,ch ch2 from tb1;`
+>
+>from 数据源:
+>* from 是为前面查询提供数据
+>* 多表数据： `select * from tb1, tb2` ，两表数据相乘产生笛卡尔积
+>* 动态数据： `select * from (select 字段列表 from 表) as 别名`
+
+## where 子句
+where 子句：用来从数据库获取数据的时候，然后进行条件筛选，通过运算符进行结果计较来判断数据
+
+## group by 子句
+group by 表示分组的含义：根据指定的字段，将数据进行分组；分组的目标是为了统计
+> 基本语法：`group by 字段名`  
+> 聚合函数：
+>* count(); 统计每组中的数量，如果统计目标是字段，那么不统计为NULL的字段； * 代表统计记录
+>* avg(); 求平均值
+>* sum(); 求和
+>* max(); 求最大值
+>* min(); 求最小值
+>* group_concat(); 将分组中指定的字段进行合并（字符串拼接）
+>
+> 多分组：`group by 字段1，字段2;`  
+// 先按字段1排序，再将结果按字段2排序...
+>
+> 分组排序：分组默认有排序功能，默认升序排列字段
+> 基本语法：`group by 字段 [asc|desc], [字段 [asc|desc]]`
+>
+> 回溯统计：每次分组向上统计的过程中都会产生一次新的统计数据，而且当前数据对应的分组字段为 NULL   
+`group by 字段 [asc|desc] with rollup`
+
+
+## having 子句
+> having 的本质和 where 一样，用来进行数据条件筛选；  
+having 在 group by 子句之后，可以针对分组数据进行统计筛选，但是 where 不行；  
+>> **注意：having 在 group by 之后；where 的时候表示将数据从磁盘拿到内存，where 之后的操作都是内存操作；where不能使用聚合函数；**
+
+
+## order by 子句
+> 根据校对规则对数据进行排序  
+基本语法：`order by 字段 [asc|desc];  --asc 升序（默认）`  
+多字段排序：先按照第一个字段排序，在按照第二个字段排序  
+语法：`order by 字段1 [asc|desc], 字段2 [asc|desc]` 
+
+
+## limit 子句
+用来限制记录获取数量，从第一条到指定的数量
+> 基本语法： `limit 数量`
+
+分页：利用 limit 获取指定区间的数据
+> 基本语法：`limit offset,length;`  
+-- offset 偏移量：从哪开始，length 最多获取多少条数据；mysql中记录从 0 开始`
+
+
+## 运算符 [#]
+[#]: https://www.runoob.com/mysql/mysql-operator.html
+* 算术运算符
+> `+  -  *  /  %`
+
+* 比较运算符
+> `>  >=  <  <=  =,<=>  <>,！=   `
+
+* 逻辑运算符
+> `NOT 或 !  AND  OR  XOR`
+* IN
+* IS ：专门用来判断字段是否为 NULL 的运算符
+* LIKE
 
 <style>
 h1{
