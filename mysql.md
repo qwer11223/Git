@@ -29,6 +29,39 @@
 > 4. DCL: Data ConTrol Language, 数据控制语言，用于用户权限管理
 > 5. TPL: Transaction Process Language, 事务处理语言，辅助DML进行事务操作（因此也归属于DML）
 
+> 数据查询语言DQL
+
+数据查询语言DQL基本结构是由SELECT子句，FROM子句，WHERE子句组成的查询块：  
+* SELECT <字段名表>
+* FROM <表或视图名>
+* WHERE <查询条件>
+
+> 数据操纵语言DML
+
+数据操纵语言DML主要有三种形式：
+* 插入：INSERT
+* 更新：UPDATE
+* 删除：DELETE
+
+> 数据定义语言DDL
+
+数据定义语言DDL用来创建数据库中的各种对象-----表、视图、索引、同义词、聚簇等如：  
+`CREATE TABLE/VIEW/INDEX/SYN/CLUSTER  `  -- 表 视图 索引 同义词 簇  
+DDL操作是隐性提交的！不能rollback 
+
+> 数据控制语言DCL
+
+数据控制语言DCL用来授予或回收访问数据库的某种特权，并控制数据库操纵事务发生的时间及效果，对数据库实行监视等。如：
+1. GRANT：授权。
+
+2. ROLLBACK [WORK] TO [SAVEPOINT]：回退到某一点。  
+回滚---ROLLBACK  
+回滚命令使数据库状态回到上次最后提交的状态。其格式为：  
+SQL>ROLLBACK;
+
+
+3. COMMIT [WORK]：提交。
+
 <br/>
 
 # <a href="#" id="type"># 数据类型 [+]</a>
@@ -889,6 +922,76 @@ show create procedure 过程名字;
 
 >参数使用级别语法（形参）  
 `过程类型 变量名 数据类型;  //in int_1 int,out int_2 int,inout int_3 int`
+
+
+<br/>
+
+
+# 触发器
+
+触发器：trigger，是一种非常接近于js中的事件的知识。提前给某张表的所有记录（行）绑定一段代码，如果该行的操作满足条件（触发），这段提前准备好的代码就会自动执行。
+
+## 创建触发器
+
+```sql
+create tigger 触发器名 触发时机 触发事件 on 表 for each row
+begin
+    -- 操作
+end
+```
+* 触发对象
+
+`on 表 for each row`，触发器绑定实质是表中的所有行，因此当每一行发生指定的改变的时候，就会触发触发器。
+
+* 触发时机
+
+触发时机：每张表中对应的行都会有不同的状态，当SQL指令发生的时候，都会令行中数据发生改变，每一行总会有两种状态：数据操作前和操作后
+
+Before：在表中数据发生改变前的状态  
+After：在表中数据已经发生改变后的状态
+
+* 触发事件
+
+触发事件：mysql中触发器针对的目标是数据发生改变，对应的操作只有写操作（增删改）
+
+Insert：插入操作  
+Update：更新操作  
+Delete：删除操作  
+
+* 注意事项
+
+一张表中，每一个触发时机绑定的触发事件对应的触发器类型只能有一个：一张表中只能有一个对应after insert触发器
+
+因此，一张表中最多的触发器只能有6个：before insert，before update，before delete，after insert，after update，after delete
+
+
+## 查看触发器
+```sql
+-- 1.查看全部触发器
+show triggers;
+
+-- 2.查看触发器的创建语句
+show create trigger 触发器名字;
+```
+
+## 触发触发器
+
+想办法让触发器执行：让触发器指定的表中，对应的时机发生对应的操作即可。
+
+## 删除触发器
+
+`drop trigger 触发器名;`
+
+## 记录关键字 new、old
+
+触发器针对的是数据表中的每条记录（每行），每行在数据操作前后都有一个对应的状态，触发器在执行之前就将对应的状态获取到了，将没有操作之前的状态（数据）都保存到old关键字中，而操作后的状态都放到new中。
+
+在触发器中，可以通过old和new来获取绑定表中对应的记录数据。
+基本语法：关键字.字段名
+
+old和new并不是所有触发器都有：  
+Insert：插入前全为空，没有old  
+Delete：清空数据，没有new
 
 
 <br/>
