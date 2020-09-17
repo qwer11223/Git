@@ -85,7 +85,13 @@
         ctx.translate(10, 10);
         ctx.restore();
 
+        //composite
+        ctx.fillStyle = '#00f';
+        ctx.fillRect(200, 300, 50, 50);
 
+        ctx.globalCompositeOperation = "darken";
+        ctx.fillStyle='#f00';
+        ctx.fillRect(220,320,50,50)
 
     </script>
 
