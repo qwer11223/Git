@@ -2,6 +2,7 @@ const fs = require('fs')
 const http = require('http')
 const host = '127.0.0.1'
 const port = 8000
+const basePath = './www'
 
 const server = http.createServer()
 
@@ -10,15 +11,20 @@ server.listen(port, host, () => {
 })
 
 server.on('request', (request, response) => {
-    console.log(request.url)
     let url = request.url
+
+    console.log(url)
+
+    var html = `<h1>Index of ${url}</h1><ul>`
 
     if (url === '/favicon.ico') return
 
     if (url === '/') {
-        var html = '<h1>Index of /</h1><ul>'
-
-        fs.readdir(`.${url}`, 'utf8', (err, data) => {
+        fs.readdir(`${basePath}`, 'utf8', (err, data) => {
+            if (err) {
+                response.end('Directory does not exist!')
+                return false
+            }
             for (var i = 0; i < data.length; i++) {
                 html += `<li><a href="${data[i]}">${data[i]}</a></li>`
             }
@@ -28,9 +34,9 @@ server.on('request', (request, response) => {
         })
     }
     else {
-        fs.readdir(`.${url}`, (err, data) => {
+        fs.readdir(`${basePath}${url}`, (err, data) => {
             if (err) {
-                fs.readFile(`.${url}`, (err, data) => {
+                fs.readFile(`${basePath}${url}`, (err, data) => {
                     if (err)
                         response.end('Read file error!')
                     else
@@ -39,7 +45,7 @@ server.on('request', (request, response) => {
             }
             else {
                 for (var i = 0; i < data.length; i++) {
-                    html += `<li><a href="res_page/${data[i]}">${data[i]}</a></li>`
+                    html += `<li><a href="${url}/${data[i]}">${data[i]}</a></li>`
                 }
 
                 response.setHeader('Content-Type', 'text/html')
