@@ -1,0 +1,11 @@
+body .container {
+  background-image: -webkit-gradient(linear, left top, right top, from(#f00), to(#0f0));
+  background-image: linear-gradient(to right, #f00, #0f0);
+}
+
+body .container .img {
+  width: 100px;
+  height: 100px;
+  background-image: url(images/1.jpg);
+}
+/*# sourceMappingURL=1.css.map */
