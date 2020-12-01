@@ -11,7 +11,7 @@ server.listen(port, host, () => {
 })
 
 server.on('request', (request, response) => {
-    let url = request.url
+    let url = decodeURI(request.url)
 
     console.log(url)
 

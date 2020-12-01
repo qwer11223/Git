@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vibrate_demo</title>
+
+    <style>
+        @media screen and (max-width: 500px) {
+
+            html,
+            body,
+            .container {
+                background-color: rgb(56, 56, 56);
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 30px;
+            }
+
+            button {
+                height: 50px;
+                width: 100px;
+                margin-bottom: 20px;
+                background-color: transparent;
+                border: 1px solid rgb(122, 230, 59);
+                color: #fff;
+            }
+
+            .stop {
+                border: 1px solid #f00;
+            }
+
+            .text {
+                color: #fff;
+                font-size: 20px;
+                margin-bottom: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p class="text">JS Vibrate Demo</p>
+        <button class="50" onclick="StartVibrate(50)">50ms</button>
+        <button class="500" onclick="StartVibrate(500)">500ms</button>
+        <button class="1000" onclick="StartVibrate(1000)">1000ms</button>
+        <button class="interval" onclick="StartVibrate('vil')">interval</button>
+        <button class="infinite" onclick="StartVibrate('vie')">infinite</button>
+        <button class="stop" onclick="StartVibrate(0)">stop</button>
+    </div>
+
+    <script>
+        var container = document.querySelector('.container')
+        var v50 = container.children[0]
+        var v500 = container.children[1]
+        var v100 = container.children[2]
+        var vil = container.children[3]
+        var vie = container.children[4]
+        var vs = container.children[5]
+
+        var timer = {}
+
+        if ('vibrate' in navigator) {
+            console.log('support')
+        }
+        else
+            alert('Not support vibrate')
+
+        function StartVibrate(ms) {
+            if (ms === 0) {
+                clearInterval(timer)
+                navigator.vibrate(0)
+            }
+            if (ms === 'vil') {
+                navigator.vibrate([500, 300, 500])
+            }
+            if (ms === 'vie') {
+                timer = setInterval(() => {
+                    navigator.vibrate(5000)
+                },1000)
+            }
+            else
+                navigator.vibrate(ms)
+        }
+    </script>
+</body>
+
+</html>
