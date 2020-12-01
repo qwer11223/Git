@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  width: 300px;
+  height: 500px;
+  border: 1px solid red;
+  position: relative;
+  top: 50px;
+  left: 100px;
+  overflow: hidden;
+}
+
+.box .content {
+  width: 95%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.box .scroll {
+  height: 100%;
+  width: 5%;
+  background-color: #ccc;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.box .scroll .bar {
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: red;
+  border-radius: 10px;
+  position: absolute;
+  pointer-events: none;
+}
+/*# sourceMappingURL=index.css.map */
