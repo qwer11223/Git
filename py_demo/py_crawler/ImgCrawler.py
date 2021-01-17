@@ -65,5 +65,5 @@ if __name__ == "__main__":
         html = getHTML(url)
         urls = parserHTML(html)
         downloadIMG(urls)
-    print(Done)
+    print('Done')
     input()
