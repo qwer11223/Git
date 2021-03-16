@@ -1,12 +1,12 @@
 # 索引
 * [Java基本语法](#Java基本语法)
-* [类与对象]()
-* [继承]()
-* [抽象、接口与标注]()
-* [异常与断言]()
-* [文件管理与输入/输出]()
-* [线程]()
-* [图形用户界面设计]()
+* [面向对象]()
+* [多线程]()
+* [Java API]()
+* [集合类]()
+* [IO]()
+* [GUI]()
+* [网络编程]()
 
 <br/>
 
@@ -136,3 +136,149 @@ public class Variable{
 ## 运算符、表达式、程序流程控制
 
 `#与c近似`
+
+## Java数组
+
+一维数组：
+
+```java
+int[] x = new int[100];
+
+int[] y;
+y = new int[100];
+
+System.out.println("y[0]: " + y[0]);
+
+for (int i = 0; i < x.length; i++)
+	System.out.println(x[i]);
+
+
+```
+
+
+
+二维数组：
+
+```java
+int[][] arr = new int[3][4];
+
+int[][] arr1 = new int[3][];
+
+int[][] arr2 = { { 1, 2 }, { 1, 2, 3, 4 }, { 1, 2, 3 } };
+
+System.out.println(arr2[0][0]);
+
+for(int i=0;i<arr2.length;i++)
+    for(int j=0;j<arr2[i].length;j++)
+        System.out.println("arr2: "+arr2[i][j]);
+```
+
+
+
+<br/>
+
+
+
+# 面向对象
+
+## 1. 类的定义
+
+```java
+/**
+ * define class
+ */
+
+class Person {
+    int age = 10; // 成员变量
+
+    void speak() {
+        int age = 60; // 局部变量
+        System.out.println(age);
+    }
+}
+```
+
+
+
+## 2. 对象的创建与使用
+
+> `类名 对象名称 = new 类名()`
+
+```java
+public class Object {
+    public static void main(String[] args) {
+        Person p1 = new Person();
+        Person p2 = new Person();
+        p1.age = 18;
+        p1.speak();
+        p2.speak();
+    }
+}
+```
+
+
+
+## 3. 构造方法
+
+1. 方法名与类名相同
+2. 在方法名的前面没有返回值类型声明
+3. 在方法中不能使用 return 语句返回一个值
+
+```java
+public class Object {
+    public static void main(String[] args) {
+        
+        Person p1 = new Person();
+        Person p2 = new Person("llll");
+    }
+}
+
+/**
+ * define class
+ */
+
+class Person {
+    int age = 10; // 成员变量
+
+    // 构造方法与类同名
+    public Person() {
+        System.out.println("aaa");
+    }
+
+    // 构造方法重载
+    public Person(String a) {
+        System.out.println(a);
+    }
+
+    void speak() {
+        int age = 60; // 局部变量
+        System.out.println(age);
+    }
+}
+```
+
+
+
+## 4. this 关键字
+
+```java
+class Person{
+    int age;
+
+    public Person(int age){
+        this.age=age; // 1. 通过this访问类成员变量，解决局部变量冲突
+    }
+
+                        // 2. 通过this调用成员方法
+
+    public Person(){
+        this(2); // 3. 调用有参构造方法 
+        getAge();
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+}
+```
+
