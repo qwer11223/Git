@@ -282,3 +282,581 @@ class Person{
 }
 ```
 
+
+
+## 5. static 关键字
+
+1. 静态变量 ： 在内存中只有一份，内一个类的所有实例对象共享，不可修饰局部变量
+
+```java
+public class Static {
+    public static void main(String[] args) {
+        Student stu1 = new Student();
+        Student stu2 = new Student();
+        Student.school = "aaa";
+        System.out.println(stu1.school);
+        System.out.println(stu2.school);
+    }
+}
+
+class Student {
+    static String school;
+}
+```
+
+
+
+2. 静态方法： 不创建对象就可调用某个方法，静态方法使用 `类名.方法名` 访问
+
+```java
+public class Static {
+    public static void main(String[] args) {
+        Person.say();
+    }
+}
+
+class Person{
+    public static void say(){
+        System.out.println("static method");
+    }
+}
+```
+
+
+
+3. 静态代码块 :  类加载时，静态代码块会执行，由于类只会加载一次，因此静态代码块只执行一次；通常使用静态代码块对类成员变量进行初始化。
+
+```java
+public class Static {
+    public static void main(String[] args) {
+        Block b = new Block();
+    }
+}
+
+class Block{
+    static String country;
+
+    // static code block
+    static{
+        country = "china";
+        System.out.println("class block static code block execute");
+    }
+}
+```
+
+
+
+## 6. 单例模式
+
+java中的一种设计模式，指在设计一个类时，需要保证在整个程序运行期间针对该类只存在一个实例对象。
+
+```java
+public class Single {
+    public static void main(String[] args) {
+        Case c1 = Case.getInstance();
+        Case c2 = Case.getInstance();
+        System.out.println(c1 == c2);
+
+        Case1 c3 = Case1.INSTANCE;
+        Case1 c4 = Case1.INSTANCE;
+        System.out.println(c3 == c4);
+    }
+}
+
+/**
+ * 单例模式： 1. 类的构造方法使用private修饰，使得不可在类外部使用new创建对象 2.
+ * 在类内部创建实例对象，使用静态变量引用，禁止外界直接访问声明为private 3. 通过静态方法返回实例对象，由于静态方法，可使用 “ 类名.方法名
+ * ”访问
+ */
+
+class Case {
+    private static Case INSTANCE = new Case();
+
+    private Case() {
+    }; // 私有化构造方法
+
+    public static Case getInstance() {
+        return INSTANCE;
+    }
+}
+
+class Case1{
+    //单例模式另一种形式
+
+    private Case1(){};
+    public static final Case1 INSTANCE = new Case1(); //final禁止外部对该变量进行修改
+
+    // 使用 “ 类名.变量名 ” 获得实例对象
+}
+```
+
+
+
+## 7. 内部类
+
+在一个类的内部定义类，成为内部类。
+
+1. 内部成员类 : 内部类可在外部类中被使用，并能访问外部类的成员。
+
+```java
+class Outer {
+    private int num = 4; // 类的成员变量
+
+    public void test() {    // 成员方法，用来访问内部类
+        Inner inner = new Inner();
+        inner.show();
+    }
+
+    class Inner {   //成员内部类
+        void show() {   //在内部类访问外部类的成员变量
+            System.out.println("num=" + num);
+        }
+    }
+}
+
+public class InnerClass{
+    public static void main(String[] args) {
+        // 通过外部类方法访问内部类
+        Outer outer = new Outer();
+        outer.test();
+
+        // 直接通过外部类访问内部类
+
+        /* 外部类名.内部类名 变量名 = new  外部类名().new 内部类名() */
+        
+        Outer.Inner inner = new Outer().new Inner(); //创建内部类对象
+        inner.show();
+    }
+}
+```
+
+
+
+2. 静态内部类 ： 通过static修饰一个成员内部类，称为静态内部类，可不创建外部类对象的情况下被实例化。
+
+```java
+class Outer {
+    private static int num = 6; 
+
+    static class Inner {   //静态内部类
+        void show() {   
+            System.out.println("num=" + num);
+        }
+    }
+}
+
+public class InnerClass{
+    public static void main(String[] args) {
+        Outer.Inner inner = new Outer.Inner();
+        inner.show();
+    }
+}
+```
+
+
+
+3. 方法内部类 ： 在成员方法内定义类，只能在当前方法中被使用。
+
+```java
+class Outer {
+    private static int num = 6;
+
+    public void test(){
+        class Inner {  
+            void show() {  
+                System.out.println("num=" + num);
+            }
+        }
+
+        Inner inner = new Inner();
+        inner.show();
+    }
+}
+
+public class InnerClass{
+    public static void main(String[] args) {
+        Outer outer = new Outer();
+        outer.test();
+    }
+}
+```
+
+
+
+## 8. 继承
+
+### 继承
+
+使用 extends 关键字
+
+```java
+class A{
+    String name;
+
+    void fun(){
+        System.out.println("class A");
+    }
+}
+
+class B extends A{
+    public void p(){
+        System.out.println("name = " + name);
+    }
+
+    void fun(){     // 重写父类方法， 不能使用比父类重写方法更严格的访问权限 P117
+        System.out.println("class B");
+    }
+}
+
+public class Inherit{
+    public static void main(String[] args) {
+        B b = new B();
+        b.name = "class_B";
+        b.p();
+        b.fun();
+    }
+}
+```
+
+### super
+
+1. 使用super调用父类成员变量和成员方法
+
+```java
+class A{
+    String name = "A";
+
+    void fun(){
+        System.out.println("class A");
+    }
+}
+
+class B extends A{
+    String name = "B";
+    
+    void fun(){
+        super.fun();
+    }
+}
+
+public class Super {
+    public static void main(String[] args) {
+        B b = new B();
+        b.fun();
+    }
+}
+```
+
+
+
+2. 使用super调用父类构造方法
+
+```java
+class A{
+    public A(){
+        System.out.println("construct-fun-A");
+    }
+}
+
+class B extends A{
+    public B(){
+        super();
+    }
+}
+
+public class Super {
+    public static void main(String[] args) {
+        B b = new B();
+    }
+}
+```
+
+
+
+
+
+## 9. final关键字
+
+1. final 修饰类
+
+被final修饰的类不能被继承
+
+```java
+final class Animal{
+    // methods
+}
+```
+
+
+
+2. final 修饰方法
+
+被final修饰的方法不能被子类重写
+
+```java
+class Animal{
+    public final void shout(){
+        //code
+    }
+}
+```
+
+
+
+3. final 修饰变量
+
+被final修饰的变量为常量
+
+```java
+public class Example{
+    public ststic void main(String[] args){
+        final int num = 2;
+        num = 4; // throw error!!!
+    }
+}
+```
+
+
+
+## 10. 抽象类和接口
+
+抽象类：
+
+1. ==包含抽象方法的类必须声明为抽象类，但抽象类可以不包含任何抽象方法==
+2. ==抽象类不可以被实例化==
+3. ==调用抽象类中定义的方法需创建子类实现抽象方法==
+
+```java
+
+public class Abstract {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.shout();
+    }
+}
+
+//abstract class
+abstract class Animal{
+    abstract void shout();
+}
+
+class Dog extends Animal{
+    void shout(){
+        System.out.println("dog");
+    }
+}
+```
+
+
+
+接口：
+
+1. 接口中的方法都是抽象的，不能被实例化
+2. 当一个类实现接口时，如果这个类是抽象类，可实现接口中部分方法，否则需实现接口中所有方法
+3. 一个类可实现多个接口
+4. 一个接口可通过extends继承多个接口
+5. 一个类继承另一个类的同时还可以实现接口
+
+```java
+public class Interface {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.run();
+    }
+}
+
+interface Animal{
+    int ID = 1; //全局常量	//默认使用 public static final 修饰
+    void run(); //抽象方法	 //默认使用 public abstract 修饰
+}
+
+interface LandAnimal extends Animal{
+    void liveOnLand();
+}
+
+class Dog implements LandAnimal{
+    public void run(){
+        System.out.println("run");
+    }
+
+    public void liveOnLand(){
+        System.out.println("live");
+    }
+}
+
+```
+
+
+
+
+
+
+
+## 11. 多态
+
+同一方法中由于参数类型不同而导致的执行效果各异的现象就是多态。
+
+```java
+class Polymorphic{
+    public static void main(String[] args) {
+        NetCard n = new NetCard();
+        SoundCard s = new SoundCard();
+        MothBoard mb = new MothBoard();
+
+        mb.usePci(n); //send...
+        mb.usePci(s); //sound
+    }
+}
+
+interface PCI{
+    void start();   //接口中方法默认使用 public abstract 修饰
+}
+
+class NetCard implements PCI{
+    public void start(){
+        System.out.println("send...");
+    }
+}
+
+class SoundCard implements PCI{
+    public void start(){
+        System.out.println("sound");
+    }
+}
+
+class MothBoard{
+    public void usePci(PCI p){
+        p.start();
+    }
+}
+```
+
+
+
+## 12. 异常
+
+try...catch...finally
+
+throws 抛出异常
+
+```java
+public class Abnormal {
+    public static void main(String[] args) {
+        try{
+            int res = divide(4, 2);
+            System.out.println(res);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            System.out.println("finally");
+        }
+    }
+
+    public static int divide(int x, int y) throws Exception { // throws抛出异常
+        int reslut = x / y;
+        return reslut;
+    }
+}
+```
+
+
+
+## 13. 包
+
+```java
+package cn.itht //使用package 关键字声明包
+// javac -d . demom.java 编译生成与包对应的目录
+
+import cn.itht.*; //导入包下所有类
+```
+
+
+
+jar 打包：
+
+`jar -cvf demo.jar package`  //打包
+
+`java -jar demo.jar`  //运行jar包 （在MANIFEST.MF 文件添加 Main-Class: 包名.类名）
+
+`jar -xvf demo.jar`  //解压jar包
+
+
+
+## 14. 访问控制
+
+(p157)
+
+private(类访问级别) -> default(包访问级别) -> protected(子类访问级别) -> public(公共访问级别)
+
+==类或类的成员不使用修饰符默认为default==
+
+
+
+# 多线程
+
+## 1. 继承Thread类创建多线程
+
+```java
+
+public class MyThread {
+    public static void main(String[] args) {
+        Sub s = new Sub();
+        s.start();
+        while(true){
+            System.out.println("main() method is running");
+        }
+    }
+}
+
+class Sub extends Thread{
+    public void run(){
+        while(true){
+            System.out.println("run() method is running");
+        }
+    }
+}
+```
+
+
+
+## 2. Runnable接口创建多线程
+
+由于java只支持单继承，多继承类可使用Runnable接口实现多线程
+
+1. 实现Runnab接口的 run() 方法
+2. 调用 Thread 的 另一个构造方法 Thread(Runnablr Target)
+3. 使用 Runnable 接口中的 run() 方法作为运行代码
+
+```java
+
+public class MyThread {
+    public static void main(String[] args) {
+        Sub s = new Sub();
+        Thread thread = new Thread(s);
+        thread.start();
+        while(true){
+            System.out.println("main() method is running");
+        }
+    }
+}
+
+class Sub implements Runnable{	//实现Runnable接口
+    public void run(){
+        while(true){
+            System.out.println("run() method is running");
+        }
+    }
+}
+```
+
+
+
+## 3. 后台线程
+
+(p172)
+
+新创建的线程默认都是前台线程，如果程序中只有后台线程在运行，这个进程就会结束。
+
+设置后台线程：
+
+`Thread.setdeamon(true) `
