@@ -860,3 +860,353 @@ class Sub implements Runnable{	//实现Runnable接口
 设置后台线程：
 
 `Thread.setdeamon(true) `
+
+
+
+## 4. 线程调度
+
+### 线程的优先级
+
+(p175)
+
+设置线程优先级：
+
+`Thread.setPriority(int newPriority)`
+
+- newPriority: 1-10之间整数或Thread类的三个静态变量
+
+
+
+```java
+public class Priority{
+    public static void main(String[] args) {
+        Thread minPriority = new Thread(new MinPriority(),"MinPriority");
+        Thread maxPriority = new Thread(new MaxPriority(),"MaxPriority");
+        minPriority.setPriority(Thread.MIN_PRIORITY); //设置低优先级
+        maxPriority.setPriority(Thread.MAX_PRIORITY); //设置高优先级
+        minPriority.start();
+        maxPriority.start();
+    }
+}
+
+class MaxPriority implements Runnable{
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println(Thread.currentThread().getName() + " output " + i);
+        }
+    }
+}
+
+class MinPriority implements Runnable{
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println(Thread.currentThread().getName() + " output " + i);
+        }
+    }
+}
+```
+
+
+
+### 线程休眠
+
+`Thread.sleep(long millis)`
+
+使当前线程休眠一段时间，休眠结束后，线程返回到就绪状态。
+
+
+
+```java
+public class Priority {
+    public static void main(String[] args) throws Exception {
+        new Thread(new SleepThread()).start();
+        for (int i = 1; i <= 10; i++) {
+            if (i == 5) {
+                Thread.sleep(2000);
+            }
+            System.out.println("Mian Thread output: " + i);
+            Thread.sleep(500);
+        }
+    }
+}
+
+class SleepThread implements Runnable {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            if (i == 3) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("Thread 1 output: " + i);
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+
+
+
+
+### 线程让步
+
+`Thread.yield()`
+
+yield不会阻塞线程，直接将线程转换为就绪状态，让系统调度器重新调度。
+
+```java
+public class Priority {
+    public static void main(String[] args) throws Exception {
+        Thread  t1 = new YieldThread("Thread A");
+        Thread t2 = new YieldThread("Thread B");
+        t1.start();
+        t2.start();
+    }
+}
+
+class YieldThread extends Thread{
+    public YieldThread(String name){
+        super(name); //call parent class constrauct method
+    }
+
+    public void run(){
+        for(int i=0;i<5;i++){
+            System.out.println(Thread.currentThread().getName() + " --- " + i);
+            if(i==3){
+                System.out.print("thread yeild: ");
+                Thread.yield();
+            }
+        }
+    }
+}
+```
+
+
+
+### 线程插队
+
+`Thread.join()`
+
+在某个线程中调用其他线程的join()方法时，调用的线程将被阻塞，直到被join()方法加入的线程==执行完成==后他才会继续运行。
+
+```java
+public class Priority {
+    public static void main(String[] args) throws Exception {
+        Thread t = new Thread(new EmergencyThread(), "Thread 1");
+        t.start();
+        for (int i = 1; i < 6; i++) {
+            System.out.println(Thread.currentThread().getName() + " input: " + i);
+            if (i == 2) {
+                System.out.println(t.getName() + " join:");
+                t.join();
+            }
+            Thread.sleep(500);
+        }
+    }
+}
+
+class EmergencyThread implements Runnable {
+    public void run() {
+        for (int i = 1; i < 6; i++) {
+            System.out.println(Thread.currentThread().getName() + " input: " + i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+
+
+## 5. 多线程同步
+
+### 同步代码块
+
+线程执行同步代码块时，首先检查锁对象的标志位，默认为1，此时执行同步代码块，同时将锁对象标志位置为0；线程获取锁对象有一定的随机性。
+
+```java
+public class Example {
+    public static void main(String[] args) {
+        SaleThread saleThread = new SaleThread();
+        new Thread(saleThread, "Thread 1").start();
+        new Thread(saleThread, "Thread 2").start();
+        new Thread(saleThread, "Thread 3").start();
+        new Thread(saleThread, "Thread 4").start();
+
+    }
+}
+
+class SaleThread implements Runnable {
+    private int tickets = 10;
+    Object lock = new Object();	//新建任意锁对象
+
+    public void run() {
+        // sync block
+        synchronized (lock) {
+            while (true) {
+
+                // delay
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                // sale
+                if (tickets > 0)
+                    System.out.println(Thread.currentThread().getName() + " ---sale ticket " + tickets--);
+                else
+                    break;
+
+            }
+        }
+    }
+}
+```
+
+
+
+### 同步方法
+
+同步方法的锁是 **当前调用该方法的对象**，也就是this指向的对象；静态方法的锁对象是 **该方法所在类的class对象**，该对象可直接使用 “ 类名.class ” 获取。
+
+```java
+public class Example2 {
+    public static void main(String[] args) {
+        Ticket1 t = new Ticket1();
+        new Thread(t, "Thread 1").start();
+        new Thread(t, "Thread 2").start();
+        new Thread(t, "Thread 3").start();
+        new Thread(t, "Thread 4").start();
+    }
+}
+
+class Ticket1 implements Runnable {
+    private int tickets = 10;
+
+    public void run() {
+        while (true) {
+            saleTicket();
+            if (tickets <= 0)
+                break;
+        }
+    }
+
+    private synchronized void saleTicket() {	//sync method
+        if (tickets > 0) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(Thread.currentThread().getName() + " ---sale ticket " + tickets--);
+
+        }
+    }
+}
+```
+
+
+
+### 多线程通信
+
+(p188)
+
+|方法声明|功能描述|
+| :-:  | :-:  |
+| void wait() | 使当前线程进入等待状态 |
+| void notify() | 唤醒此同步锁上等待的第一个调用 wait() 方法的线程 |
+| void notifyAll() | 唤醒此同步锁上调用 wait() 方法的所有线程 |
+
+```java
+public class Example4 {
+    public static void main(String[] args) {
+        Storage st = new Storage();
+        Input input = new Input(st);
+        Output output = new Output(st);
+
+        new Thread(input).start();
+        new Thread(output).start();
+    }
+}
+
+class Storage {
+    private int[] cells = new int[10];
+    private int inPos, outPos; // array flag
+    private int count;
+
+    public synchronized void put(int num) {
+        try {
+            while (count == cells.length)
+                this.wait();
+            cells[inPos] = num;
+            System.out.println("cells[" + inPos + "] input data ---- " + cells[inPos]);
+            inPos++;
+            if (inPos == cells.length)
+                inPos = 0;
+            count++;
+            this.notify();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void get() {
+        try {
+            while (count == 0)
+                this.wait();
+            int data = cells[outPos];
+            System.out.println("cells[" + outPos + "] get data " + data);
+            outPos++;
+            if (outPos == cells.length)
+                outPos = 0;
+            count--;
+            this.notify();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+class Input implements Runnable {
+    private Storage st;
+    private int num;
+
+    Input(Storage st) {
+        this.st = st;
+    }
+
+    public void run() {
+        while (true) {
+            st.put(num++);
+        }
+    }
+}
+
+class Output implements Runnable {
+    private Storage st;
+
+    Output(Storage st) {
+        this.st = st;
+    }
+
+    public void run() {
+        while (true) {
+            st.get();
+        }
+    }
+}
+```
+
