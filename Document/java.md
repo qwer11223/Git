@@ -1224,3 +1224,211 @@ class Output implements Runnable {
 
 # 集合类
 
+## 一. Collection
+
+(单列集合类根接口 [value] )
+
+### 1. List
+
+（有序，可重复）
+
+```java
+package list;
+
+import java.util.*;
+
+public class ArrayListDemo {
+    public static void main(String[] args) {
+        //1. ArrayList[长度可变数组] 底层使用数组保存元素
+        // ArrayList<Number> list = new ArrayList<>();
+
+        //2. LinkedList[双向循环链表]
+        LinkedList<Number> list = new LinkedList<>();
+        list.add(123);
+        list.add(3);
+        list.add(5);
+        list.add(2);
+
+        System.out.println(list);
+
+        // Iterator
+        Iterator<Number> it = list.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+
+        System.out.println("-------------");
+
+        // foreach
+        for (Number tmp : list)
+            System.out.println(tmp);
+
+        System.out.println("-------------");
+
+        //3. Vector 线程安全 用法与 ArrayList 相同
+        Vector<Number> v = new Vector<>();
+        v.add(1);
+        v.add(0);
+        Enumeration<Number> e = v.elements();
+        while (e.hasMoreElements())
+            System.out.println(e.nextElement());
+    }
+}
+```
+
+
+
+### 2. Set
+
+（无序，不可重复）
+
+```java
+package set;
+
+import java.util.*;
+
+public class HashSetDemo {
+    public static void main(String[] args) {
+
+        // 1.HashSet[哈希值]
+        //1.1 add()添加元素
+        //1.2 hashCode() 获取哈希值
+        //1.3 根据哈希值计算存储位置
+        //1.4 equals() 比较元素是否相等
+        //1.5 将元素存入集合或移除元素
+        HashSet<String> set = new HashSet<>();
+        set.add("Jack");
+        set.add("Eve");
+        set.add("Eve");
+
+        System.out.println(set);
+
+        System.out.println("-------------");
+
+        //2.TreeSet[自平衡二叉树]
+        // compareTo()比较元素并存入
+        TreeSet<String> ts = new TreeSet<>();
+        ts.add("Helena");
+        ts.add("Helena");
+        ts.add("Eve");
+
+        System.out.print(ts);
+
+    }
+}
+```
+
+
+
+
+
+## 二. Map
+
+(双列集合类根接口 [key - value] )
+
+```java
+package map;
+
+import java.util.*;
+
+public class HashMapDemo {
+    public static void main(String[] args) {
+        // 1.HashMap(键不重复)
+        Map<Number, String> map = new HashMap<>();
+        map.put(1, "Jack");
+        map.put(2, "Rose");
+        map.put(3, "Lucy");
+
+        map.get(2);
+
+        System.out.println("-------------");
+
+        // 遍历1:获取所有键遍历
+        Set<Number> keySet = map.keySet(); // 获取键集合
+        Iterator<Number> it = keySet.iterator(); // 迭代键集合
+        while (it.hasNext()) {
+            Object key = it.next();
+            Object value = map.get(key);
+            System.out.println(key + ":" + value);
+        }
+
+        System.out.println("-------------");
+
+        // 遍历2:获取所有映射关系，从中取出键和值
+        // Set entrySet = map.entrySet();
+        // Iterator i = entrySet.iterator();
+        // while (i.hasNext()) {
+        // Map.Entry entry = (Map.Entry) (it.next());
+        // Object key = entry.getKey();
+        // Object value = entry.getValue();
+        // System.out.println(key + ":" + value);
+        // }
+
+        // 2. LinkedHashMap(HashMap的子类，有序，双向链表存储结构)
+        // ...
+
+        // 3.TreeMap(二叉树存储结构)
+        // ...
+
+        // 4.Hashtable [线程安全] -> Properties：常用于存取配置项，存储字符串类型的键和值
+
+    }
+}
+```
+
+
+
+## 三. 泛型
+
+```java
+package generics;
+
+import java.util.ArrayList;
+
+// 泛型（参数化类型）：在编译时检测非法类型
+
+public class Demo {
+    // 1. 泛型方法: 规则：类型参数<T> 声明在方法返回类型前
+    public static <T> void printArray(T[] inputArray) {
+        for (T element : inputArray) {
+            System.out.printf("%s", element);
+        }
+        System.out.println(); // 换行
+    }
+
+    public static void main(String[] args) {
+        Integer[] intArr = { 1, 2, 3 };
+        Double[] dArr = { 1.1, 2.2, 3.3 };
+        Character[] chArr = { 'A', 'B', 'C' };
+
+        printArray(intArr);
+        printArray(dArr);
+        printArray(chArr);
+
+        ////// 2. 泛型类 //////////
+        cachePool<Integer> pool = new cachePool<>();
+        pool.save(1);
+        Integer temp = pool.get();
+        System.out.println(temp);
+    }
+}
+
+// 2. 泛型类
+class cachePool<T> {
+    T temp;
+
+    public void save(T tmp) {
+        this.temp = tmp;
+    }
+
+    public T get() {
+        return temp;
+    }
+
+    // 类型通配符
+    public void test(ArrayList<?> list) {
+        ;
+    }
+}
+```
+

@@ -73,3 +73,53 @@ Secure Shell (安全外壳协议)
 > #在输入界面键入
 > */1 * * * * /usr/sbin/ntpdate ntp4.aliyun.com;
 
+## 安装JAVA
+
+1. 上传 jdk-11.0.1_linux-x64_bin.tar.gz
+
+2.  `tar -xvf  jdk-11.0.1_linux-x64_bin.tar.gz -C /opt` 解压文件到 /opt 目录
+3. 配置环境变量
+
+```shell
+# /etc/profile
+
+#添加
+export JAVA_HOME=/opt/jdk-11.0.1
+export PATH=:$JAVA_HOME/bin:$PATH
+```
+
+
+
+
+
+# Zookeeper 环境搭建
+
+1. 上传zookeeper并解压
+2. 修改配置文件
+
+```shell
+# 1.
+cd /opt/zookeeper-3.2.1/conf/
+
+# 2.
+cp zoo_sample.cfg zoo.cfg
+#添加
+server.1=node01:2888:3888
+server.2=node02:2888:3888
+server.3=node03:2888:3888
+
+# 3.
+mkdir /opt/zookeeper-3.2.1/zkdatas
+```
+
+3.  添加myid配置
+
+`echo 1 > /opt/zookeeper-3.2.1/zkdatas/myid`
+
+4. 安装包分发并修改myid值
+5.  zookeeper/bin/zkServer.sh start 启动zookeeper
+
+
+
+# Hadoop 环境搭建
+
