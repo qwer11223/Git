@@ -1432,3 +1432,177 @@ class cachePool<T> {
 }
 ```
 
+
+
+# IO
+
+```java
+package com.example;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.LineNumberReader;
+import java.io.OutputStream;
+
+/*
+    IO 流
+    |
+    |_ 一、字节流
+        |_ <1>InputStream <抽象类>
+            |_ 1.FileInputStream
+            |_ 2.FilterInputStream
+                |_ BufferedInputStream //字节缓冲流
+        |_ <2>OutputStream <抽象类>
+            |_ 1.FileOutputStream
+            |_ 2.FilterOutputStream
+                |_ BufferedOutputStream
+    |
+    |_ 二、字符流
+        |_ <1>Reader <抽象类>
+            |_1.InputStreamReader
+                |_FileReader
+            |_2.BufferedReader
+                |_LineNumberReader
+        |_ <2>writer <抽象类>
+            |_1.OutputStreamWriter
+                |_FileWriter
+            |_2.BufferedWriter
+*/
+
+public class IO {
+    public static void main(String[] args) throws Exception {
+
+        new Line();
+    }
+}
+
+/////////// 字节流 /////////////////
+// 1.FileInputStream
+class In {
+    public In() throws IOException {
+        FileInputStream in = new FileInputStream("src/main/java/com/example/test.txt");
+        int b = 0;
+        while (true) {
+            b = in.read();
+            if (b == -1) {
+                break;
+            }
+            System.out.println(b);
+        }
+        in.close();
+    }
+}
+
+// 1.1 fileOutputStream
+class Out {
+    public Out() throws IOException {
+        FileOutputStream out = new FileOutputStream("./out.txt");
+        String str = "测试字符";
+        byte[] b = str.getBytes();
+        for (int i = 0; i < b.length; i++) {
+            out.write(b[i]);
+        }
+        out.close();
+    }
+}
+
+// 1.2字节流的缓冲区 (p288)
+class Buff {
+    public Buff() throws IOException {
+        InputStream in = new FileInputStream("out.txt");
+        OutputStream out = new FileOutputStream("out_copy.txt");
+        byte[] buff = new byte[1024];
+        int len;
+        long begintime = System.currentTimeMillis();
+        while ((len = in.read(buff)) != -1) {
+            out.write(buff, 0, len);
+        }
+        long endtime = System.currentTimeMillis();
+        System.out.println("消耗时间: " + (endtime - begintime) + " ms");
+        in.close();
+        out.close();
+    }
+}
+
+// 1.4 字节缓冲流
+class BufferedStream {
+    public BufferedStream() throws IOException {
+        // (p290 装饰设计模式)
+        // BufferedInputStream、BufferedOutputStream 和 1.2 方法类似
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream("out.txt"));
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("out_buff_copy.txt"));
+        int len;
+        while ((len = bis.read()) != -1) {
+            bos.write(len);
+        }
+        bis.close();
+        bos.close();
+    }
+}
+
+//////////////// 字符流 ///////////////////
+
+// 2.字符流操作文件
+// 2.1 FileReader
+class Read {
+    public Read() throws Exception {
+        FileReader reader = new FileReader("out.txt");
+        int ch;
+        while ((ch = reader.read()) != -1) {
+            System.out.println((char) ch);
+        }
+        reader.close();
+    }
+}
+
+// 2.2 FileWriter
+class Write {
+    public Write() throws IOException {
+        FileWriter writer = new FileWriter("writer.txt");
+        String str = "FileWrite test";
+        writer.write(str);
+        writer.write("\r\n");
+        writer.close();
+    }
+}
+
+// 2.3 BufferedReader 、BufferedWriter (装饰设计模式)
+class BuffRW {
+    public BuffRW() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("out.txt"));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("char_buff_copy.txt"));
+        String str;
+        while ((str = bufferedReader.readLine()) != null) {
+            bufferedWriter.write(str);
+            bufferedWriter.newLine();
+        }
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
+
+class Line {
+    public Line() throws IOException {
+        FileReader fileReader = new FileReader("Test.java");
+        FileWriter fileWriter = new FileWriter("test_copy.java");
+        LineNumberReader lineNumberReader = new LineNumberReader(fileReader); // 包装
+        lineNumberReader.setLineNumber(0);  //设置行号
+        String line = null;
+        while ((line = lineNumberReader.readLine()) != null) {
+            fileWriter.write(lineNumberReader.getLineNumber() + ':' + line);
+            fileWriter.write("\r\n");
+        }
+        lineNumberReader.close();
+        fileWriter.close();
+    }
+}
+```
+
