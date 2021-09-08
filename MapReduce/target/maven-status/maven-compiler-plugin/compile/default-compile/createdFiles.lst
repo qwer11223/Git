@@ -1,0 +1,11 @@
+link\iwen\WordCountReducer.class
+link\iwen\JobMain.class
+partition\JobMain.class
+sort\SortMapper.class
+sort\SortReducer.class
+partition\PartMapper.class
+sort\JobMain.class
+sort\SortBean.class
+link\iwen\WordCountMapper.class
+partition\PartReducer.class
+partition\MyPartition.class

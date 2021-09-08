@@ -1,0 +1,339 @@
+INFO LocalJobRunner Map Task Executor #0 org.apache.hadoop.mapred.MapTask - Finished spill 0
+DEBUG LocalJobRunner Map Task Executor #0 org.apache.hadoop.fs.FileSystem - NativeIO.createDirectoryWithMode error, path = \tmp\hadoop-Lenovo\mapred\local\localRunner\Lenovo\jobcache\job_local1727962666_0001\attempt_local1727962666_0001_m_000000_0\output, mode = 755
+183: 当文件已存在时，无法创建该文件。
+
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode0(Native Method)
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode(NativeIO.java:560)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkOneDirWithMode(RawLocalFileSystem.java:534)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirsWithOptionalPermission(RawLocalFileSystem.java:587)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirs(RawLocalFileSystem.java:559)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:316)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:305)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1098)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:987)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:975)
+	at org.apache.hadoop.mapred.SpillRecord.writeToFile(SpillRecord.java:134)
+	at org.apache.hadoop.mapred.SpillRecord.writeToFile(SpillRecord.java:127)
+	at org.apache.hadoop.mapred.MapTask$MapOutputBuffer.mergeParts(MapTask.java:1863)
+	at org.apache.hadoop.mapred.MapTask$MapOutputBuffer.flush(MapTask.java:1527)
+	at org.apache.hadoop.mapred.MapTask$NewOutputCollector.close(MapTask.java:735)
+	at org.apache.hadoop.mapred.MapTask.runNewMapper(MapTask.java:805)
+	at org.apache.hadoop.mapred.MapTask.run(MapTask.java:347)
+	at org.apache.hadoop.mapred.LocalJobRunner$Job$MapTaskRunnable.run(LocalJobRunner.java:271)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+INFO LocalJobRunner Map Task Executor #0 org.apache.hadoop.mapred.Task - Task:attempt_local1727962666_0001_m_000000_0 is done. And is in the process of committing
+INFO LocalJobRunner Map Task Executor #0 org.apache.hadoop.mapred.LocalJobRunner - map
+INFO LocalJobRunner Map Task Executor #0 org.apache.hadoop.mapred.Task - Task 'attempt_local1727962666_0001_m_000000_0' done.
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.updateStatus(Job.java:328)
+INFO main org.apache.hadoop.mapreduce.Job - Job job_local1727962666_0001 running in uber mode : false
+INFO main org.apache.hadoop.mapreduce.Job -  map 100% reduce 0%
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.getTaskCompletionEvents(Job.java:729)
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.updateStatus(Job.java:328)
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.updateStatus(Job.java:328)
+INFO LocalJobRunner Map Task Executor #0 org.apache.hadoop.mapred.Task - Final Counters for attempt_local1727962666_0001_m_000000_0: Counters: 17
+	File System Counters
+		FILE: Number of bytes read=858155
+		FILE: Number of bytes written=1228493
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+	Map-Reduce Framework
+		Map input records=10000
+		Map output records=10000
+		Map output bytes=849555
+		Map output materialized bytes=871177
+		Input split bytes=144
+		Combine input records=0
+		Spilled Records=10000
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=14
+		Total committed heap usage (bytes)=163577856
+	File Input Format Counters 
+		Bytes Read=857954
+INFO LocalJobRunner Map Task Executor #0 org.apache.hadoop.mapred.LocalJobRunner - Finishing task: attempt_local1727962666_0001_m_000000_0
+DEBUG LocalJobRunner Map Task Executor #0 org.apache.hadoop.util.concurrent.ExecutorHelper - afterExecute in thread: LocalJobRunner Map Task Executor #0, runnable type: java.util.concurrent.FutureTask
+INFO Thread-3 org.apache.hadoop.mapred.LocalJobRunner - map task executor complete.
+DEBUG Thread-3 org.apache.hadoop.mapred.LocalJobRunner - Starting reduce thread pool executor.
+DEBUG Thread-3 org.apache.hadoop.mapred.LocalJobRunner - Max local threads: 1
+DEBUG Thread-3 org.apache.hadoop.mapred.LocalJobRunner - Reduce tasks to process: 1
+INFO Thread-3 org.apache.hadoop.mapred.LocalJobRunner - Waiting for reduce tasks
+DEBUG pool-4-thread-1 org.apache.hadoop.util.concurrent.HadoopThreadPoolExecutor - beforeExecute in thread: pool-4-thread-1, runnable type: java.util.concurrent.FutureTask
+INFO pool-4-thread-1 org.apache.hadoop.mapred.LocalJobRunner - Starting task: attempt_local1727962666_0001_r_000000_0
+DEBUG pool-4-thread-1 org.apache.hadoop.mapred.SortedRanges - currentIndex 0   0:0
+DEBUG pool-4-thread-1 org.apache.hadoop.mapred.LocalJobRunner - mapreduce.cluster.local.dir for child : /tmp/hadoop-Lenovo/mapred/local/localRunner//Lenovo/jobcache/job_local1727962666_0001/attempt_local1727962666_0001_r_000000_0
+DEBUG pool-4-thread-1 org.apache.hadoop.mapred.Task - using new api for output committer
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.PathOutputCommitterFactory - Looking for committer factory for path file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.PathOutputCommitterFactory - No scheme-specific factory defined in mapreduce.outputcommitter.factory.scheme.file
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.PathOutputCommitterFactory - No output committer factory defined, defaulting to FileOutputCommitterFactory
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.PathOutputCommitterFactory - Creating FileOutputCommitter for path file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out and context TaskAttemptContextImpl{JobContextImpl{jobId=job_local1727962666_0001}; taskId=attempt_local1727962666_0001_r_000000_0, status=''}
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.PathOutputCommitter - Instantiating committer FileOutputCommitter{PathOutputCommitter{context=TaskAttemptContextImpl{JobContextImpl{jobId=job_local1727962666_0001}; taskId=attempt_local1727962666_0001_r_000000_0, status=''}; org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter@575bed68}; outputPath=null, workPath=null, algorithmVersion=0, skipCleanup=false, ignoreCleanupFailures=false} with output path file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out and job context TaskAttemptContextImpl{JobContextImpl{jobId=job_local1727962666_0001}; taskId=attempt_local1727962666_0001_r_000000_0, status=''}
+INFO pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter - File Output Committer Algorithm version is 2
+INFO pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter - FileOutputCommitter skip cleanup _temporary folders under output directory:false, ignore cleanup failures: false
+INFO pool-4-thread-1 org.apache.hadoop.yarn.util.ProcfsBasedProcessTree - ProcfsBasedProcessTree currently is supported only on Linux.
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Task -  Using ResourceCalculatorProcessTree : org.apache.hadoop.yarn.util.WindowsBasedProcessTree@59e55972
+INFO pool-4-thread-1 org.apache.hadoop.mapred.ReduceTask - Using ShuffleConsumerPlugin: org.apache.hadoop.mapreduce.task.reduce.Shuffle@1c0a0d69
+WARN pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSystemImpl - JobTracker metrics system already initialized!
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.lib.MutableMetricsFactory - field private org.apache.hadoop.metrics2.lib.MutableCounterInt org.apache.hadoop.mapreduce.task.reduce.ShuffleClientMetrics.numFailedFetches with annotation @org.apache.hadoop.metrics2.annotation.Metric(sampleName="Ops", always=false, valueName="Time", about="", interval=10, type=DEFAULT, value={})
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.lib.MutableMetricsFactory - field private org.apache.hadoop.metrics2.lib.MutableCounterInt org.apache.hadoop.mapreduce.task.reduce.ShuffleClientMetrics.numSuccessFetches with annotation @org.apache.hadoop.metrics2.annotation.Metric(sampleName="Ops", always=false, valueName="Time", about="", interval=10, type=DEFAULT, value={})
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.lib.MutableMetricsFactory - field private org.apache.hadoop.metrics2.lib.MutableCounterLong org.apache.hadoop.mapreduce.task.reduce.ShuffleClientMetrics.numBytes with annotation @org.apache.hadoop.metrics2.annotation.Metric(sampleName="Ops", always=false, valueName="Time", about="", interval=10, type=DEFAULT, value={})
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.lib.MutableMetricsFactory - field private org.apache.hadoop.metrics2.lib.MutableGaugeInt org.apache.hadoop.mapreduce.task.reduce.ShuffleClientMetrics.numThreadsBusy with annotation @org.apache.hadoop.metrics2.annotation.Metric(sampleName="Ops", always=false, valueName="Time", about="", interval=10, type=DEFAULT, value={})
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSystemImpl - ShuffleClientMetrics-477743541, ShuffleClientMetrics
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsConfig - poking parent 'PropertiesConfiguration' for key: source.source.start_mbeans
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsConfig - poking parent 'MetricsConfig' for key: source.start_mbeans
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsConfig - poking parent 'PropertiesConfiguration' for key: *.source.start_mbeans
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSourceAdapter - Updating attr cache...
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSourceAdapter - Done. # tags & metrics=10
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSourceAdapter - Updating info cache...
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSystemImpl - [javax.management.MBeanAttributeInfo[description=, name=tag.user, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=, name=tag.jobName, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=, name=tag.jobId, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=, name=tag.taskId, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Metrics context, name=tag.Context, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=Local hostname, name=tag.Hostname, type=java.lang.String, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=NumFailedFetches, name=NumFailedFetches, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=NumSuccessFetches, name=NumSuccessFetches, type=java.lang.Integer, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=NumBytes, name=NumBytes, type=java.lang.Long, read-only, descriptor={}], javax.management.MBeanAttributeInfo[description=NumThreadsBusy, name=NumThreadsBusy, type=java.lang.Integer, read-only, descriptor={}]]
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSourceAdapter - Done
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.util.MBeans - Registered Hadoop:service=JobTracker,name=ShuffleClientMetrics-477743541
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSourceAdapter - MBean for source ShuffleClientMetrics-477743541 registered.
+DEBUG pool-4-thread-1 org.apache.hadoop.metrics2.impl.MetricsSystemImpl - Registered source ShuffleClientMetrics-477743541
+INFO pool-4-thread-1 org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - MergerManager: memoryLimit=1481218432, maxSingleShuffleLimit=370304608, mergeThreshold=977604224, ioSortFactor=10, memToMemMergeOutputsThreshold=10
+INFO EventFetcher for fetching Map Completion Events org.apache.hadoop.mapreduce.task.reduce.EventFetcher - attempt_local1727962666_0001_r_000000_0 Thread started: EventFetcher for fetching Map Completion Events
+DEBUG EventFetcher for fetching Map Completion Events org.apache.hadoop.mapreduce.task.reduce.EventFetcher - Got 0 map completion events from 0
+DEBUG EventFetcher for fetching Map Completion Events org.apache.hadoop.mapreduce.task.reduce.EventFetcher - GetMapEventsThread about to sleep for 1000
+DEBUG localfetcher#1 org.apache.hadoop.mapreduce.task.reduce.LocalFetcher - LocalFetcher 1 going to fetch: attempt_local1727962666_0001_m_000000_0
+DEBUG localfetcher#1 org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - attempt_local1727962666_0001_m_000000_0: Proceeding with shuffle since usedMemory (0) is lesser than memoryLimit (1481218432).CommitMemory is (0)
+INFO localfetcher#1 org.apache.hadoop.mapreduce.task.reduce.LocalFetcher - localfetcher#1 about to shuffle output of map attempt_local1727962666_0001_m_000000_0 decomp: 871173 len: 871177 to MEMORY
+INFO localfetcher#1 org.apache.hadoop.mapreduce.task.reduce.InMemoryMapOutput - Read 871173 bytes from map-output for attempt_local1727962666_0001_m_000000_0
+INFO localfetcher#1 org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - closeInMemoryFile -> map-output of size: 871173, inMemoryMapOutputs.size() -> 1, commitMemory -> 0, usedMemory ->871173
+DEBUG localfetcher#1 org.apache.hadoop.mapreduce.task.reduce.ShuffleSchedulerImpl - map attempt_local1727962666_0001_m_000000_0 done 1 / 1 copied.
+INFO EventFetcher for fetching Map Completion Events org.apache.hadoop.mapreduce.task.reduce.EventFetcher - EventFetcher is interrupted.. Returning
+INFO pool-4-thread-1 org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+INFO pool-4-thread-1 org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - finalMerge called with 1 in-memory map-outputs and 0 on-disk map-outputs
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Merger - Merging 1 sorted segments
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Merger - Down to the last merge-pass, with 1 segments left of total size: 871110 bytes
+DEBUG pool-4-thread-1 org.apache.hadoop.fs.FileSystem - NativeIO.createDirectoryWithMode error, path = \tmp\hadoop-Lenovo\mapred\local\localRunner\Lenovo\jobcache\job_local1727962666_0001\attempt_local1727962666_0001_r_000000_0\output, mode = 755
+183: 当文件已存在时，无法创建该文件。
+
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode0(Native Method)
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode(NativeIO.java:560)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkOneDirWithMode(RawLocalFileSystem.java:534)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirsWithOptionalPermission(RawLocalFileSystem.java:587)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirs(RawLocalFileSystem.java:559)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:316)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:305)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1098)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:987)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:975)
+	at org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl.finalMerge(MergeManagerImpl.java:738)
+	at org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl.close(MergeManagerImpl.java:379)
+	at org.apache.hadoop.mapreduce.task.reduce.Shuffle.run(Shuffle.java:160)
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:377)
+	at org.apache.hadoop.mapred.LocalJobRunner$Job$ReduceTaskRunnable.run(LocalJobRunner.java:347)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+INFO pool-4-thread-1 org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merged 1 segments, 871173 bytes to disk to satisfy reduce memory limit
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Disk file: /tmp/hadoop-Lenovo/mapred/local/localRunner/Lenovo/jobcache/job_local1727962666_0001/attempt_local1727962666_0001_r_000000_0/output/map_0.out.merged Length is 871177
+INFO pool-4-thread-1 org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merging 1 files, 871177 bytes from disk
+INFO pool-4-thread-1 org.apache.hadoop.mapreduce.task.reduce.MergeManagerImpl - Merging 0 segments, 0 bytes from memory into reduce
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Merger - Merging 1 sorted segments
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Merger - Down to the last merge-pass, with 1 segments left of total size: 871110 bytes
+INFO pool-4-thread-1 org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.FileOutputFormat - Work file for TaskAttemptContextImpl{JobContextImpl{jobId=job_local1727962666_0001}; taskId=attempt_local1727962666_0001_r_000000_0, status=''} extension '' is file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out/_temporary/0/_temporary/attempt_local1727962666_0001_r_000000_0/part-r-00000
+DEBUG pool-4-thread-1 org.apache.hadoop.fs.FileSystem - NativeIO.createDirectoryWithMode error, path = C:\Users\Lenovo\Desktop\MapReduce\src\main\java\dnsclear\data\out\_temporary\0\_temporary\attempt_local1727962666_0001_r_000000_0, mode = 755
+183: 当文件已存在时，无法创建该文件。
+
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode0(Native Method)
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode(NativeIO.java:560)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkOneDirWithMode(RawLocalFileSystem.java:534)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirsWithOptionalPermission(RawLocalFileSystem.java:587)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirs(RawLocalFileSystem.java:559)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:316)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:351)
+	at org.apache.hadoop.fs.ChecksumFileSystem$ChecksumFSOutputSummer.<init>(ChecksumFileSystem.java:401)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:464)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:443)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1118)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1098)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:987)
+	at org.apache.hadoop.mapreduce.lib.output.TextOutputFormat.getRecordWriter(TextOutputFormat.java:126)
+	at org.apache.hadoop.mapred.ReduceTask$NewTrackingRecordWriter.<init>(ReduceTask.java:542)
+	at org.apache.hadoop.mapred.ReduceTask.runNewReducer(ReduceTask.java:615)
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:390)
+	at org.apache.hadoop.mapred.LocalJobRunner$Job$ReduceTaskRunnable.run(LocalJobRunner.java:347)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+DEBUG pool-4-thread-1 org.apache.hadoop.fs.FileSystem - NativeIO.createDirectoryWithMode error, path = C:\Users\Lenovo\Desktop\MapReduce\src\main\java\dnsclear\data\out\_temporary\0\_temporary\attempt_local1727962666_0001_r_000000_0, mode = 755
+183: 当文件已存在时，无法创建该文件。
+
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode0(Native Method)
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode(NativeIO.java:560)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkOneDirWithMode(RawLocalFileSystem.java:534)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirsWithOptionalPermission(RawLocalFileSystem.java:587)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirs(RawLocalFileSystem.java:559)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:316)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:351)
+	at org.apache.hadoop.fs.ChecksumFileSystem$ChecksumFSOutputSummer.<init>(ChecksumFileSystem.java:405)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:464)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:443)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1118)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1098)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:987)
+	at org.apache.hadoop.mapreduce.lib.output.TextOutputFormat.getRecordWriter(TextOutputFormat.java:126)
+	at org.apache.hadoop.mapred.ReduceTask$NewTrackingRecordWriter.<init>(ReduceTask.java:542)
+	at org.apache.hadoop.mapred.ReduceTask.runNewReducer(ReduceTask.java:615)
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:390)
+	at org.apache.hadoop.mapred.LocalJobRunner$Job$ReduceTaskRunnable.run(LocalJobRunner.java:347)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+INFO pool-4-thread-1 org.apache.hadoop.conf.Configuration.deprecation - mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Task - Task:attempt_local1727962666_0001_r_000000_0 is done. And is in the process of committing
+INFO pool-4-thread-1 org.apache.hadoop.mapred.LocalJobRunner - 1 / 1 copied.
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Task - Task attempt_local1727962666_0001_r_000000_0 is allowed to commit now
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter - Merging data from DeprecatedRawLocalFileStatus{path=file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out/_temporary/0/_temporary/attempt_local1727962666_0001_r_000000_0; isDirectory=true; modification_time=1630474433690; access_time=1630474433690; owner=; group=; permission=rwxrwxrwx; isSymlink=false; hasAcl=false; isEncrypted=false; isErasureCoded=false} to file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out
+DEBUG pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter - Merging data from DeprecatedRawLocalFileStatus{path=file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out/_temporary/0/_temporary/attempt_local1727962666_0001_r_000000_0/part-r-00000; isDirectory=false; length=847954; replication=1; blocksize=33554432; modification_time=1630474433747; access_time=1630474433747; owner=; group=; permission=rw-rw-rw-; isSymlink=false; hasAcl=false; isEncrypted=false; isErasureCoded=false} to file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out/part-r-00000
+INFO pool-4-thread-1 org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter - Saved output of task 'attempt_local1727962666_0001_r_000000_0' to file:/C:/Users/Lenovo/Desktop/MapReduce/src/main/java/dnsclear/data/out
+INFO pool-4-thread-1 org.apache.hadoop.mapred.LocalJobRunner - reduce > reduce
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Task - Task 'attempt_local1727962666_0001_r_000000_0' done.
+INFO pool-4-thread-1 org.apache.hadoop.mapred.Task - Final Counters for attempt_local1727962666_0001_r_000000_0: Counters: 24
+	File System Counters
+		FILE: Number of bytes read=2600541
+		FILE: Number of bytes written=2954260
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+	Map-Reduce Framework
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=9677
+		Reduce shuffle bytes=871177
+		Reduce input records=10000
+		Reduce output records=10000
+		Spilled Records=10000
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=1
+		Total committed heap usage (bytes)=163577856
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Output Format Counters 
+		Bytes Written=854590
+INFO pool-4-thread-1 org.apache.hadoop.mapred.LocalJobRunner - Finishing task: attempt_local1727962666_0001_r_000000_0
+DEBUG pool-4-thread-1 org.apache.hadoop.util.concurrent.ExecutorHelper - afterExecute in thread: pool-4-thread-1, runnable type: java.util.concurrent.FutureTask
+INFO Thread-3 org.apache.hadoop.mapred.LocalJobRunner - reduce task executor complete.
+DEBUG Thread-3 org.apache.hadoop.fs.FileSystem - NativeIO.createDirectoryWithMode error, path = C:\Users\Lenovo\Desktop\MapReduce\src\main\java\dnsclear\data\out, mode = 755
+183: 当文件已存在时，无法创建该文件。
+
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode0(Native Method)
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode(NativeIO.java:560)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkOneDirWithMode(RawLocalFileSystem.java:534)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirsWithOptionalPermission(RawLocalFileSystem.java:587)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirs(RawLocalFileSystem.java:559)
+	at org.apache.hadoop.fs.ChecksumFileSystem.mkdirs(ChecksumFileSystem.java:705)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:456)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:443)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1118)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1098)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:987)
+	at org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter.commitJobInternal(FileOutputCommitter.java:436)
+	at org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter.commitJob(FileOutputCommitter.java:376)
+	at org.apache.hadoop.mapred.LocalJobRunner$Job.run(LocalJobRunner.java:567)
+DEBUG Thread-3 org.apache.hadoop.fs.FileSystem - NativeIO.createDirectoryWithMode error, path = C:\Users\Lenovo\Desktop\MapReduce\src\main\java\dnsclear\data\out, mode = 755
+183: 当文件已存在时，无法创建该文件。
+
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode0(Native Method)
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode(NativeIO.java:560)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkOneDirWithMode(RawLocalFileSystem.java:534)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirsWithOptionalPermission(RawLocalFileSystem.java:587)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirs(RawLocalFileSystem.java:559)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:316)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:351)
+	at org.apache.hadoop.fs.ChecksumFileSystem$ChecksumFSOutputSummer.<init>(ChecksumFileSystem.java:401)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:464)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:443)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1118)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1098)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:987)
+	at org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter.commitJobInternal(FileOutputCommitter.java:436)
+	at org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter.commitJob(FileOutputCommitter.java:376)
+	at org.apache.hadoop.mapred.LocalJobRunner$Job.run(LocalJobRunner.java:567)
+DEBUG Thread-3 org.apache.hadoop.fs.FileSystem - NativeIO.createDirectoryWithMode error, path = C:\Users\Lenovo\Desktop\MapReduce\src\main\java\dnsclear\data\out, mode = 755
+183: 当文件已存在时，无法创建该文件。
+
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode0(Native Method)
+	at org.apache.hadoop.io.nativeio.NativeIO$Windows.createDirectoryWithMode(NativeIO.java:560)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkOneDirWithMode(RawLocalFileSystem.java:534)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirsWithOptionalPermission(RawLocalFileSystem.java:587)
+	at org.apache.hadoop.fs.RawLocalFileSystem.mkdirs(RawLocalFileSystem.java:559)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:316)
+	at org.apache.hadoop.fs.RawLocalFileSystem.create(RawLocalFileSystem.java:351)
+	at org.apache.hadoop.fs.ChecksumFileSystem$ChecksumFSOutputSummer.<init>(ChecksumFileSystem.java:405)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:464)
+	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:443)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1118)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:1098)
+	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:987)
+	at org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter.commitJobInternal(FileOutputCommitter.java:436)
+	at org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter.commitJob(FileOutputCommitter.java:376)
+	at org.apache.hadoop.mapred.LocalJobRunner$Job.run(LocalJobRunner.java:567)
+DEBUG Thread-3 org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.fs.FileContext.getAbstractFileSystem(FileContext.java:333)
+INFO main org.apache.hadoop.mapreduce.Job -  map 100% reduce 100%
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.getTaskCompletionEvents(Job.java:729)
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.updateStatus(Job.java:328)
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.updateStatus(Job.java:328)
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.getTaskCompletionEvents(Job.java:729)
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.updateStatus(Job.java:328)
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.updateStatus(Job.java:328)
+INFO main org.apache.hadoop.mapreduce.Job - Job job_local1727962666_0001 completed successfully
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.getCounters(Job.java:817)
+INFO main org.apache.hadoop.mapreduce.Job - Counters: 30
+	File System Counters
+		FILE: Number of bytes read=3458696
+		FILE: Number of bytes written=4182753
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+	Map-Reduce Framework
+		Map input records=10000
+		Map output records=10000
+		Map output bytes=849555
+		Map output materialized bytes=871177
+		Input split bytes=144
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=9677
+		Reduce shuffle bytes=871177
+		Reduce input records=10000
+		Reduce output records=10000
+		Spilled Records=20000
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=15
+		Total committed heap usage (bytes)=327155712
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=857954
+	File Output Format Counters 
+		Bytes Written=854590
+DEBUG main org.apache.hadoop.security.UserGroupInformation - PrivilegedAction as:Lenovo (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.updateStatus(Job.java:328)
+DEBUG Thread-1 org.apache.hadoop.util.ShutdownHookManager - Completed shutdown in 0.005 seconds; Timeouts: 0
+DEBUG Thread-1 org.apache.hadoop.util.ShutdownHookManager - ShutdownHookManger completed shutdown.
