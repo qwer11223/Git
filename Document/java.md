@@ -286,7 +286,7 @@ class Person{
 
 ## 5. static 关键字
 
-1. 静态变量 ： 在内存中只有一份，内一个类的所有实例对象共享，不可修饰局部变量
+1. 静态变量 ： 在内存中只有一份，同一个类的所有实例对象共享，不可修饰局部变量
 
 ```java
 public class Static {
@@ -823,7 +823,7 @@ class Sub extends Thread{
 
 由于java只支持单继承，多继承类可使用Runnable接口实现多线程
 
-1. 实现Runnab接口的 run() 方法
+1. 实现Runnable接口的 run() 方法
 2. 调用 Thread 的 另一个构造方法 Thread(Runnablr Target)
 3. 使用 Runnable 接口中的 run() 方法作为运行代码
 
@@ -1602,6 +1602,61 @@ class Line {
         }
         lineNumberReader.close();
         fileWriter.close();
+    }
+}
+```
+
+
+
+# Junit
+
+```java
+package junit;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+public class CalculatorTest {
+
+    Calculator calculator = new Calculator();
+
+    //-------------------------------------------------
+
+    /**
+     * 初始化方法：
+     * 用于资源申请：修饰的方法在所有测试方法执行前都会先执行该方法
+     */
+    @Before
+    public void init() {
+        System.out.println("init...");
+    }
+
+    /**
+     * 释放资源方法：
+     * 修饰的方法在所有测试方法执行后执行
+     */
+    @After
+    public void close(){
+        System.out.println("close...");
+    }
+
+    //--------------------------------------------------
+
+    @Test
+    public void testAdd() {
+        // System.out.println(calculator.add(1, 2));
+        int add = calculator.add(1, 2);
+
+        // Assert
+        Assert.assertEquals(3, add);
+    }
+
+    @Test
+    public void testSub() {
+        int sub = calculator.sub(1, 3);
+        Assert.assertEquals(-1, sub);
     }
 }
 ```
