@@ -1214,11 +1214,190 @@ class Output implements Runnable {
 
 # JAVA API
 
-* String & StringBuffer
-* System & Runtime
-* Math & Random
-* 包装类
-* Date & Canlendar & DateFormat
+## String & StringBuffer
+
+(p200)
+
+```java
+package api;
+
+import org.junit.Test;
+
+public class StringBufferTest {
+
+    @Test
+    public void stringBuffer() {
+        StringBuffer stringBuffer = new StringBuffer();
+        
+        //append
+        stringBuffer.append("abcd");
+        System.out.println(stringBuffer); //abcd
+
+        //insert
+        stringBuffer.insert(1, "zz");
+        System.out.println(stringBuffer); //azzbcd
+
+        //deleteCharAt
+        stringBuffer.deleteCharAt(1);
+        System.out.println(stringBuffer); //azbcd
+
+        //delete
+        stringBuffer.delete(0, 2);
+        System.out.println(stringBuffer); //bcd
+
+        //replace
+        stringBuffer.replace(0, 1, "xxx");
+        System.out.println(stringBuffer); //xxxcd
+
+        //setCharAt
+        stringBuffer.setCharAt(0, 'y');
+        System.out.println(stringBuffer); //yxxcd
+
+        //toString
+        stringBuffer.toString();
+        System.out.println(stringBuffer); //yxxcd
+
+        //reverse
+        stringBuffer.reverse();
+        System.out.println(stringBuffer); //dcxxy
+    }
+}
+```
+
+
+
+## System & Runtime
+
+```java
+public class SystemTest {
+
+    @Test
+    public void systemTest() {
+        Properties properties = System.getProperties();
+
+        Enumeration<?> propertyNames = properties.propertyNames();
+        
+        while (propertyNames.hasMoreElements()) {
+            String nextElement = (String) propertyNames.nextElement();
+            String property = System.getProperty(nextElement);
+            System.out.println(nextElement + " ---> " + property);
+        }
+    }
+}
+
+
+//---------------------------------------------------
+
+public class RuntimeTest {
+
+    @Test
+    public void runTime() throws IOException {
+        Runtime runtime = Runtime.getRuntime();
+
+        System.out.println(runtime.availableProcessors());
+        System.out.println(runtime.freeMemory()/1024/1024);
+        System.out.println(runtime.maxMemory()/1024/1024);
+        System.out.println(runtime.totalMemory()/1024/1024);
+
+        runtime.exec("notepad.exe");
+    }
+}
+```
+
+
+
+## Math & Random
+
+```java
+//Random();
+//Random(long seed);
+
+public void random() {
+
+        Random random = new Random();
+
+        int min = 20;
+        int max = 50;
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println(min + random.nextInt(max - min + 1));
+        }
+    }
+```
+
+
+
+## 包装类
+
+
+
+## Date & Canlendar & DateFormat
+
+  ```java
+  public class DateTest {
+
+    @Test
+    public void date() {
+        Date date1 = new Date();
+        Date date2 = new Date(999999999999L);
+
+        System.out.println(date1 + "\n" + date2);
+    }
+
+}
+
+//------------Calendar-------------------------
+
+public class P235_2Test {
+
+    @Test
+    public void cal(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int date_ = calendar.get(Calendar.DATE);
+
+        calendar.set(year, month, date_);   //设置calendar时间
+        calendar.add(Calendar.DATE, 100);   //日加100天
+
+        Date time = calendar.getTime(); //转为Date类型
+
+        DateFormat dateInstance = DateFormat.getDateInstance(DateFormat.FULL);  //DateFormat格式化日期
+        String format = dateInstance.format(time);
+
+        System.out.println(format);
+
+    }
+}
+
+//-------------DateFormat--------------------------
+
+public class DateFormatTest {
+
+    @Test
+    public void dateFormat() throws ParseException {
+        Date date = new Date();
+
+        DateFormat dateInstance = DateFormat.getDateInstance(DateFormat.FULL);
+        DateFormat dateTimeInstance = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
+
+        //format
+        System.out.println(dateInstance.format(date));
+        System.out.println(dateTimeInstance.format(date));
+
+        //parse
+        // System.out.println(dateInstance.parse("2021 年 9 月 14 日"));
+    }
+
+    @Test
+    public void simpleDateFormat() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        System.out.println(simpleDateFormat.format(new Date()));
+    }
+}
+  ```
+
+  
 
 
 
@@ -1435,6 +1614,8 @@ class cachePool<T> {
 
 
 # IO
+
+![](https://img-blog.csdn.net/20140814122633546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTUxMjU5MjE1MQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ```java
 package com.example;
