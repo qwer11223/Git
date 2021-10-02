@@ -1397,7 +1397,7 @@ public class DateFormatTest {
 }
   ```
 
-  
+  SimpleDateFormat 格式符号:![](https://img-blog.csdn.net/20160728114707521)
 
 
 
