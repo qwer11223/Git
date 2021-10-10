@@ -344,3 +344,64 @@ printf "%s %s %s\n" a b c d e f g h i j
 # 如果没有 arguments，那么 %s 用NULL代替，%d 用 0 代替
 printf "%s and %d \n"
 ```
+
+
+
+---
+
+# source、sh、bash、./执行脚本的区别
+
+```shell
+1、source命令用法：
+　　source FileName
+
+　　作用:在当前bash环境下读取并执行FileName中的命令。该filename文件可以无"执行权限"
+
+    注：该命令通常用命令“.”来替代。
+
+    如：source bash_profile
+
+        . bash_profile两者等效。
+
+    source(或点)命令通常用于重新执行刚修改的初始化文档。
+
+    source命令(从 C Shell 而来)是bash shell的内置命令。
+
+    点命令，就是个点符号，(从Bourne Shell而来)。
+    
+    
+2、sh和bash命令用法：
+
+     sh FileName
+
+     bash FileName
+
+     作用:在当前bash环境下读取并执行FileName中的命令。该filename文件可以无"执行权限"
+
+     注：两者在执行文件时的不同，是分别用自己的shell来跑文件。
+
+ 
+
+   sh使用“-n”选项进行shell脚本的语法检查，使用“-x”选项实现shell脚本逐条语句的跟踪，
+
+   可以巧妙地利用shell的内置变量增强“-x”选项的输出信息等。
+   
+3、./的命令用法：
+
+     ./FileName
+
+     作用:打开一个子shell来读取并执行FileName中命令。
+
+ 
+
+     注：运行一个shell脚本时会启动另一个命令解释器.
+
+         每个shell脚本有效地运行在父shell(parent shell)的一个子进程里.
+
+            这个父shell是指在一个控制终端或在一个xterm窗口中给你命令指示符的进程.
+
+         shell脚本也可以启动他自已的子进程.
+
+            这些子shell(即子进程)使脚本并行地，有效率地地同时运行脚本内的多个子任务.
+```
+

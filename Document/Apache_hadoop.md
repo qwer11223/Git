@@ -99,22 +99,24 @@ export PATH=:$JAVA_HOME/bin:$PATH
 
 ```shell
 # 1.
-cd /opt/zookeeper-3.2.1/conf/
+cd /opt/zookeeper-3.7.0/conf/
 
 # 2.
 cp zoo_sample.cfg zoo.cfg
 #添加
+dataDir=/opt/zookeeper/zkdatas
+
 server.1=node01:2888:3888
 server.2=node02:2888:3888
 server.3=node03:2888:3888
 
 # 3.
-mkdir /opt/zookeeper-3.2.1/zkdatas
+mkdir /opt/zookeeper-3.7.0/zkdatas
 ```
 
 3.  添加myid配置
 
-`echo 1 > /opt/zookeeper-3.2.1/zkdatas/myid`
+`echo 1 > /opt/zookeeper-3.7.0/zkdatas/myid`
 
 4. 安装包分发并修改myid值
 5.  zookeeper/bin/zkServer.sh start 启动zookeeper
