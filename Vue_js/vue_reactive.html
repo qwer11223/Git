@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>vue响应式原理</h1>
+    <input type="button" value="update">
+    <p></p>
+
+    <script>
+        let data = {
+            name: 'jack',
+            age: 20
+        }
+
+        let btn = document.querySelector('input');
+        var p = document.querySelector('p');
+        p.innerHTML = data.age
+        btn.addEventListener('click', () => {
+            data.age = 30
+        })
+
+        //变成响应式数据
+        observer(data);
+
+        function observer(target) {
+            if (typeof target !== 'object' || target == null)
+                return target;
+
+            for (let key in target) {
+                defineReactive(target, key, target[key]);
+            }
+        }
+
+        function defineReactive(target, key, value) {
+            Object.defineProperty(target, key, {
+                get() {
+                    return value;
+                },
+                set(newValue) {
+                    if (newValue != value) {
+                        value = newValue;
+                        p.innerText = value
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

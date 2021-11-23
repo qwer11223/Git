@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ca>
+            <!-- v-slot 只能添加在 <template> 上 除非：独占默认插槽的缩写语法-->
+            <!-- 具名插槽 -->
+            <template v-slot:s1>
+                slot1
+            </template>
+
+            <!-- 具名插槽 -->
+            <!-- v-slot 简写 #  ,该缩写只在其有参数的时候才可用-->
+            <template #s2>
+                slot2
+            </template>
+
+            <!-- 插槽 prop -->
+            <!-- 只要出现多个插槽，请始终为所有的插槽使用完整的基于 <template> 的语法： -->
+            <template v-slot:default="sp">
+                {{sp.item}}
+            </template>
+        </ca>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+
+        const componentA = {
+            data() {
+                return {
+                    count: 0,
+                    items: ['Feed a cat', 'Buy milk']
+                }
+            },
+            template: `
+                <button @click="count++">
+                You clicked me {{ count }} times.
+                </button>
+                <slot name="s1">123</slot>
+                <slot name="s2">333</slot>
+                
+                <ul>
+                <li v-for="(item, index) in items">
+                    <slot :item="item"></slot>
+                </li>
+                </ul>
+                `
+        }
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                }
+            }
+        })
+
+        app.component('ca', componentA)
+
+        app.mount("#app")
+
+    </script>
+
+</body>
+
+</html>
