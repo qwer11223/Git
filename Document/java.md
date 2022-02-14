@@ -1,15 +1,3 @@
-# 索引
-* [Java基本语法](#Java基本语法)
-* [面向对象]()
-* [多线程]()
-* [Java API]()
-* [集合类]()
-* [IO]()
-* [GUI]()
-* [网络编程]()
-
-<br/>
-
 # Java基本语法
 
 ![](https://www.runoob.com/wp-content/uploads/2013/12/ZSSDMld.png)
@@ -1786,6 +1774,132 @@ class Line {
     }
 }
 ```
+
+
+
+# 反射
+
+> 通过java语言中的反射机制可以操作字节码文件（可以读和修改字节码文件。）
+> 通过反射机制可以操作代码片段。（class文件。）
+
+**反射机制相关包都在`java.lang.reflect.*`下**
+
+
+
+**1.类对象的获取**
+
+>1.通过对象获取
+>
+>```
+>Object obj = new Object();
+>obj.getClass();
+>```
+>
+>2.通过类名获取
+>
+>```
+>Object.class;
+>```
+>
+>3.通过类的路径名获取
+>
+>```
+>Class.forName("com.metadata.Student");
+>```
+
+
+
+**2.类的实例化和构造函数**
+
+获取到的class对象可以直接通过clazz.newInstance()方法实例化，但是需要目标类有默认无参构造函数，不然会抛出异常。
+
+> 1.获取公有构造函数，不包括父类
+>
+> ```
+> //Classpublic Constructor<?>[] getConstructors() 
+> public Constructor<T> getConstructor(Class<?>... parameterTypes)
+> ```
+>
+> 2.获取**当前类**构造函数，忽略修饰符
+>
+> ```
+> //Class
+> public Constructor<?>[] getDeclaredConstructors()
+> public Constructor<T> getDeclaredConstructor(Class<?>... parameterTypes)
+> ```
+>
+> 3.构造函数调用
+>
+> ```
+> //Constructor
+> public T newInstance(Object... initargs)
+> //忽略修饰符，强制调用
+> public void setAccessible(boolean flag)
+> ```
+
+
+
+**3.类成员变量的获取**
+
+> 1.获取公有变量，包括父类
+>
+> ```
+> //Class
+> public Field[] getFields()
+> public Field getField(String name)
+> ```
+>
+> 2.获取**当前类**成员变量，忽略修饰符
+>
+> ```
+> //Class
+> public Field[] getDeclaredFields()
+> public Field getDeclaredField(String name)
+> ```
+>
+> 成员变量赋值
+>
+> ```
+> //Field
+> //obj为实例对象
+> public void set(Object obj,Object value)
+> //忽略修饰符，强制调用
+> public void setAccessible(boolean flag)
+> ```
+
+
+
+**4.类方法的获取**
+
+> 1.获取公有方法，包括父类
+>
+> ```
+> //Class
+> public Method[] getMethods()
+> public Method getMethod(String name,
+>                         Class<?>... parameterTypes)
+> ```
+>
+> 2.获取**当前类**方法，忽略修饰符
+>
+> ```
+> //Class
+> public Method[] getDeclaredMethods()
+> public Method getDeclaredMethod(String name,
+>                                 Class<?>... parameterTypes)
+> ```
+>
+> 方法调用
+>
+> ```
+> //Method
+> //obj为类实例化对象，如果为静态方法obj为Null
+> invoke(Object obj, Object... args)
+> //忽略修饰符，强制调用
+> public void setAccessible(boolean flag)
+> ```
+
+
 
 
 
