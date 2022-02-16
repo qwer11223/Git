@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userDao" class="com.iwen.dao.impl.UserDaoImpl">
+        <property name="strList">
+            <list>
+                <value>111</value>
+                <value>222</value>
+            </list>
+        </property>
+        <property name="userMap">
+            <map>
+                <entry key="u1" value-ref="user1"></entry>
+            </map>
+        </property>
+        <property name="props">
+            <props>
+                <prop key="k1">123</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="user1" class="com.iwen.dao.impl.User">
+        <property name="name" value="jack"></property>
+        <property name="age" value="18"></property>
+    </bean>
+</beans>

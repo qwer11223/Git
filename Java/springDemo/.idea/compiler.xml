@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="05 springInterceptor" />
+        <module name="02 springAnno" />
+        <module name="01 springConfig" />
+        <module name="03 springMVC" />
+        <module name="04 springJDBC" />
+        <module name="09 mybatisQuick" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="05 springIncepetor" target="11" />
+      <module name="springInterceptor" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
